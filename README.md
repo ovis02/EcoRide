@@ -4,7 +4,7 @@ EcoRide est une plateforme web innovante pour la gestion et la réservation de v
 
 ## Technologies utilisées
 
-Le projet **EcoRide** repose sur les technologies suivantes pour garantir une interface moderne et dynamique, ainsi qu'une gestion optimisée du backend :
+Le projet **EcoRide** repose sur les technologies suivantes pour garantir une interface moderne et une gestion du backend : 
 
 - **HTML** : Pour la structure de base des pages web.
 - **CSS** : Pour la mise en forme et le design des pages.
