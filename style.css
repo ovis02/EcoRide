@@ -1,0 +1,320 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/*..................header.................. */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url("images/imageFond.png");
+  background-size: cover;
+  background-position: center;
+  height: 160px;
+  padding: 15px;
+}
+
+/*............................admin......................................*/
+.admin img {
+  top: 0;
+  right: 0;
+  display: block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+}
+
+.login-form {
+  display: none;
+  position: absolute;
+  background-color: white;
+  color: white;
+  top: 10px;
+  right: 80px;
+  z-index: 10;
+}
+/*.............................logo profil connexion.......................................*/
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.logo img {
+  width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+/*..................................................................................*/
+
+/* Menu centré */
+
+.titre-navigation {
+  position: absolute;
+  top: 50px; /* Ajuste selon ton besoin */
+  left: 180px; /* Décale le menu à droite du logo */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-size: 24px;
+  color: #005f73;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}
+
+.burger-container {
+  display: none;
+}
+
+.vertical-navbar {
+  display: none;
+}
+/*............................admin......................................*/
+.admin img {
+  top: 0;
+  right: 0;
+  display: block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+}
+
+.login-form {
+  display: none;
+  position: absolute;
+  background-color: white;
+  color: white;
+  top: 10px;
+  right: 80px;
+  z-index: 10;
+}
+
+/* Barre de recherche sous le header */
+.search-container {
+  position: absolute;
+  top: 155px; /* ajuste selon la hauteur de ton header */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 2;
+}
+/* Boîte blanche flottante */
+.search-box {
+  background-color: #66a1e3;
+  border-radius: 15px;
+}
+
+/* Champs de saisie */
+.search-box .form-control {
+  border-radius: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Placeholder */
+.search-box .form-control::placeholder {
+  color: #6c757d;
+}
+
+/* Bouton Rechercher */
+button.btn.button-reserch {
+  background-color: #66a1e3;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button.btn.button-reserch:hover {
+  background-color: #5494d1;
+}
+
+/*Introduction*/
+.introduction-section {
+  margin-top: 130px;
+}
+
+.text-container h1 {
+  font-size: 3rem;
+  color: #333;
+  text-align: center;
+}
+.text-container p {
+  text-align: center;
+  font-size: 1.5 rem;
+}
+
+.text-container h1,
+p {
+  color: #005f73;
+  font-family: "Roboto", sans-serif;
+}
+
+/*...........................Section centrale........................*/
+
+.centered-section {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.centered-section h2 {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  color: #005f73;
+}
+
+.centered-section p {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  color: #005f73;
+}
+
+/* Footer */
+.custom-footer {
+  background-size: cover;
+  background-position: center;
+
+  background: linear-gradient(
+    135deg,
+    rgba(0, 95, 115, 0.2),
+    rgba(10, 147, 150, 0.2)
+  );
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.logo-footer {
+  max-width: 100%;
+  height: auto;
+}
+
+.footer-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.contact-button {
+  margin-top: 15px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.text-muted {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  /*header*/
+  header {
+    height: auto;
+    width: auto;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo img {
+    width: 100px;
+    height: 90px;
+  }
+
+  .search-box .btn {
+    width: 100%;
+  }
+  .introduction-section {
+    margin-top: 330px;
+  }
+
+  /*........................PrincipaleMobileFormat.............................*/
+  .text-container {
+    width: auto;
+    text-align: center;
+  }
+
+  .text-container h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+  }
+
+  .text-container p {
+    font-size: 10px;
+    font-weight: bold;
+    color: #54331e;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  /*...........................Section centrale........................*/
+
+  .centered-section h2 {
+    font-size: 20px;
+  }
+
+  .centered-section p {
+    font-size: 12px;
+  }
+
+  /*footer Mobile*/
+
+  .logo-footer {
+    width: 150px;
+    height: auto;
+  }
+
+  .contact-button {
+    margin-bottom: 10px;
+    max-width: 200px;
+  }
+
+  .footer-title {
+    font-size: 12px;
+  }
+
+  .link-secondary {
+    font-size: 10px;
+  }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .text-muted {
+    font-size: 8px;
+  }
+}
+/*...................................*/
