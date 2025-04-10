@@ -29,17 +29,30 @@ header {
 .login-form {
   display: none;
   position: absolute;
+  top: 70px;
+  right: 10px;
   background-color: white;
-  color: white;
-  top: 10px;
-  right: 80px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  width: 90%;
   z-index: 10;
 }
-/*.............................logo profil connexion.......................................*/
+
+.login-form input,
+.login-form button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/*.............................logoEcoride.......................................*/
 .logo {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
 }
 
 .logo img {
@@ -83,49 +96,29 @@ nav ul li a {
 .vertical-navbar {
   display: none;
 }
-/*............................admin......................................*/
-.admin img {
-  top: 0;
-  right: 0;
-  display: block;
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  z-index: 1;
-}
-
-.login-form {
-  display: none;
-  position: absolute;
-  background-color: white;
-  color: white;
-  top: 10px;
-  right: 80px;
-  z-index: 10;
-}
 
 /* Barre de recherche sous le header */
 .search-container {
   position: absolute;
-  top: 155px; /* ajuste selon la hauteur de ton header */
+  top: 155px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   z-index: 2;
 }
-/* Boîte blanche flottante */
+
 .search-box {
   background-color: #66a1e3;
   border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Champs de saisie */
 .search-box .form-control {
   border-radius: 10px;
   font-family: "Roboto", sans-serif;
 }
 
-/* Placeholder */
 .search-box .form-control::placeholder {
   color: #6c757d;
 }
@@ -151,7 +144,6 @@ button.btn.button-reserch:hover {
 
 .text-container h1 {
   font-size: 3rem;
-  color: #333;
   text-align: center;
 }
 .text-container p {
@@ -214,7 +206,17 @@ p {
 }
 
 .contact-button {
-  margin-top: 15px;
+  background-color: white;
+  color: #005f73;
+  border: 2px solid #005f73;
+  max-width: 200px;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .social-icon {
@@ -231,40 +233,152 @@ p {
 @media (max-width: 768px) {
   /*header*/
   header {
+    flex-direction: column;
+    align-items: center;
     height: auto;
-    width: auto;
+    padding: 10px 0;
   }
 
-  .header-nav {
+  .titre-navigation {
     display: none;
   }
+  /*..................LogoAdministrator.............*/
+  .admin img {
+    top: 0;
+    right: 0;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+  }
 
-  .header-container {
+  /*.............................logoEcoride.......................................*/
+  .logo {
+    position: relative;
+    top: auto;
+    left: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 15px;
   }
 
   .logo img {
     width: 100px;
-    height: 90px;
+    height: auto;
+  }
+  /*...................................*/
+  /*formulaire admin*/
+
+  .login-form {
+    top: 50px;
+    right: 10px;
+    width: 90%;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: white; /* optionnel mais utile pour visibilité */
+    z-index: 10; /* pour éviter qu’il passe derrière d’autres éléments */
   }
 
-  .search-box .btn {
+  .login-form input,
+  .login-form button {
+    width: 100%;
+    max-width: 300px; /* limite la taille en grand écran */
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  /*.....................*/
+  /* Positionnement du burger */
+  .burger-container {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    margin: 10px;
+    display: block;
+  }
+
+  /* Styles pour la barre de navigation verticale uniquement pour les appareils mobiles */
+  .vertical-navbar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    overflow-y: auto; /* Pour permettre le défilement si nécessaire */
+    padding-top: 60px; /* Espace pour le titre */
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out; /* Animation de transition */
+  }
+
+  .vertical-navbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .vertical-navbar a {
+    display: block;
+    color: #54331e;
+    text-decoration: none;
+    font-size: 18px; /* Taille de la police */
+    padding: 15px 20px; /* Espacement */
+  }
+
+  .vertical-navbar a:hover {
+    background-color: #f78f2e;
+  }
+
+  #close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    color: #54331e;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  /*..........BarreDeRecherche.......*/
+
+  .search-box {
+    padding: 15px;
+  }
+
+  .search-box .form-control {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .search-container {
+    top: 140px;
+    padding: 0 10px;
+  }
+
+  .button-reserch {
     width: 100%;
   }
+  /*..........................*/
   .introduction-section {
-    margin-top: 330px;
+    margin-top: 250px;
   }
 
   /*........................PrincipaleMobileFormat.............................*/
   .text-container {
+    margin-top: 100px;
     width: auto;
     text-align: center;
   }
 
   .text-container h1 {
-    font-size: 32px;
+    font-size: 20px;
     margin-bottom: 10px;
     margin-top: 30px;
   }
@@ -272,7 +386,7 @@ p {
   .text-container p {
     font-size: 10px;
     font-weight: bold;
-    color: #54331e;
+    color: #005f73;
   }
 
   .container {
@@ -280,25 +394,31 @@ p {
   }
 
   /*...........................Section centrale........................*/
-
+  .centered-section {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
   .centered-section h2 {
     font-size: 20px;
   }
 
   .centered-section p {
-    font-size: 12px;
+    font-size: 10px;
   }
 
-  /*footer Mobile*/
+  /*.........footer Mobile.........*/
 
   .logo-footer {
-    width: 150px;
+    width: 70px;
     height: auto;
   }
 
   .contact-button {
-    margin-bottom: 10px;
-    max-width: 200px;
+    max-width: 100%;
+    width: 90%;
+    font-size: 16px;
+    padding: 12px 0;
   }
 
   .footer-title {
@@ -312,9 +432,6 @@ p {
   .social-icon {
     width: 20px;
     height: 20px;
-  }
-  .text-muted {
-    font-size: 8px;
   }
 }
 /*...................................*/
