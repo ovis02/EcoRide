@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %} {% block title %}Bienvenue à Ecoride{% endblock
+%} {% block content %}
+<!-- Barre de recherche -->
+
+<div class="container search-container">
+  <div class="search-box p-4 shadow">
+    <form class="row g-3">
+      <div class="col-md-3 col-12">
+        <input type="text" class="form-control" placeholder="Départ" />
+      </div>
+      <div class="col-md-3 col-12">
+        <input type="text" class="form-control" placeholder="Destination" />
+      </div>
+      <div class="col-md-2 col-12">
+        <input type="date" class="form-control" placeholder="Date" />
+      </div>
+      <div class="col-md-2 col-12">
+        <input type="number" class="form-control" placeholder="Passagers" />
+      </div>
+      <div class="col-md-2 col-12 d-grid">
+        <button class="btn btn-primary button-reserch">Rechercher</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--Introduction-->
+
+<div class="container introduction-section">
+  <div class="row">
+    <!-- Texte à gauche -->
+    <div class="col-lg-6">
+      <div class="text-container">
+        <h1>Bienvenue à Ecoride</h1>
+        <p class="mt-4">
+          Recherchez un covoiturage en quelques clics, voyagez à moindre coût et
+          réduisez votre empreinte écologique. <br /><br />
+          Que vous soyez passager ou conducteur, notre plateforme vous connecte
+          aux meilleurs itinéraires près de chez vous.
+        </p>
+      </div>
+    </div>
+
+    <!-- Image à droite -->
+    <div class="col-lg-6">
+      <div class="image-container text-center text-lg-end">
+        <img
+          src="{{ asset('assets/images/vert bleu eco.jpg') }}"
+          alt="Eco"
+          class="img-fluid rounded shadow"
+          style="max-height: 350px"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="centered-section">
+  <h2>Trouvez et partagez vos trajets en toute simplicité</h2>
+  <p>🔎 Recherchez un itinéraire | 👥 Partagez un trajet | 💰 Économisez</p>
+</div>
+{% endblock %}

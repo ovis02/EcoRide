@@ -1,0 +1,437 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/*..................header.................. */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url("../images/imageFond.png");
+  background-size: cover;
+  background-position: center;
+  height: 160px;
+  padding: 15px;
+}
+
+/*............................admin......................................*/
+.admin img {
+  top: 0;
+  right: 0;
+  display: block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+}
+
+.login-form {
+  display: none;
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  width: 90%;
+  z-index: 10;
+}
+
+.login-form input,
+.login-form button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/*.............................logoEcoride.......................................*/
+.logo {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.logo img {
+  width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+/*..................................................................................*/
+
+/* Menu centré */
+
+.titre-navigation {
+  position: absolute;
+  top: 50px; /* Ajuste selon ton besoin */
+  left: 180px; /* Décale le menu à droite du logo */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-size: 24px;
+  color: #005f73;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}
+
+.burger-container {
+  display: none;
+}
+
+.vertical-navbar {
+  display: none;
+}
+
+/* Barre de recherche sous le header */
+.search-container {
+  position: absolute;
+  top: 155px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 2;
+}
+
+.search-box {
+  background-color: #66a1e3;
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-box .form-control {
+  border-radius: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+.search-box .form-control::placeholder {
+  color: #6c757d;
+}
+
+/* Bouton Rechercher */
+button.btn.button-reserch {
+  background-color: #66a1e3;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button.btn.button-reserch:hover {
+  background-color: #5494d1;
+}
+
+/*Introduction*/
+.introduction-section {
+  margin-top: 130px;
+}
+
+.text-container h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+.text-container p {
+  text-align: center;
+  font-size: 1.5 rem;
+}
+
+.text-container h1,
+p {
+  color: #005f73;
+  font-family: "Roboto", sans-serif;
+}
+
+/*...........................Section centrale........................*/
+
+.centered-section {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.centered-section h2 {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  color: #005f73;
+}
+
+.centered-section p {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  color: #005f73;
+}
+
+/* Footer */
+.custom-footer {
+  background-size: cover;
+  background-position: center;
+
+  background: linear-gradient(
+    135deg,
+    rgba(0, 95, 115, 0.2),
+    rgba(10, 147, 150, 0.2)
+  );
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.logo-footer {
+  max-width: 100%;
+  height: auto;
+}
+
+.footer-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.contact-button {
+  background-color: white;
+  color: #005f73;
+  border: 2px solid #005f73;
+  max-width: 200px;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.text-muted {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  /*header*/
+  header {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .titre-navigation {
+    display: none;
+  }
+  /*..................LogoAdministrator.............*/
+  .admin img {
+    top: 0;
+    right: 0;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+  }
+
+  /*.............................logoEcoride.......................................*/
+  .logo {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  .logo img {
+    width: 100px;
+    height: auto;
+  }
+  /*...................................*/
+  /*formulaire admin*/
+
+  .login-form {
+    top: 50px;
+    right: 10px;
+    width: 90%;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: white; /* optionnel mais utile pour visibilité */
+    z-index: 10; /* pour éviter qu’il passe derrière d’autres éléments */
+  }
+
+  .login-form input,
+  .login-form button {
+    width: 100%;
+    max-width: 300px; /* limite la taille en grand écran */
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  /*.....................*/
+  /* Positionnement du burger */
+  .burger-container {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    margin: 10px;
+    display: block;
+  }
+
+  /* Styles pour la barre de navigation verticale uniquement pour les appareils mobiles */
+  .vertical-navbar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    overflow-y: auto; /* Pour permettre le défilement si nécessaire */
+    padding-top: 60px; /* Espace pour le titre */
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out; /* Animation de transition */
+  }
+
+  .vertical-navbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .vertical-navbar a {
+    display: block;
+    color: #54331e;
+    text-decoration: none;
+    font-size: 18px; /* Taille de la police */
+    padding: 15px 20px; /* Espacement */
+  }
+
+  .vertical-navbar a:hover {
+    background-color: #f78f2e;
+  }
+
+  #close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    color: #54331e;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  /*..........BarreDeRecherche.......*/
+
+  .search-box {
+    padding: 15px;
+  }
+
+  .search-box .form-control {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .search-container {
+    top: 140px;
+    padding: 0 10px;
+  }
+
+  .button-reserch {
+    width: 100%;
+  }
+  /*..........................*/
+  .introduction-section {
+    margin-top: 250px;
+  }
+
+  /*........................PrincipaleMobileFormat.............................*/
+  .text-container {
+    margin-top: 100px;
+    width: auto;
+    text-align: center;
+  }
+
+  .text-container h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+  }
+
+  .text-container p {
+    font-size: 10px;
+    font-weight: bold;
+    color: #005f73;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  /*...........................Section centrale........................*/
+  .centered-section {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .centered-section h2 {
+    font-size: 20px;
+  }
+
+  .centered-section p {
+    font-size: 10px;
+  }
+
+  /*.........footer Mobile.........*/
+
+  .logo-footer {
+    width: 70px;
+    height: auto;
+  }
+
+  .contact-button {
+    max-width: 100%;
+    width: 90%;
+    font-size: 16px;
+    padding: 12px 0;
+  }
+
+  .footer-title {
+    font-size: 12px;
+  }
+
+  .link-secondary {
+    font-size: 10px;
+  }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+/*...................................*/
