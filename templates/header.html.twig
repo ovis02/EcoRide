@@ -33,9 +33,9 @@
 
     <nav class="titre-navigation">
       <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="covoiturage.html">Covoiturage</a></li>
-        <li><a href="formulaire.html">Contact</a></li>
+        <li><a href="{{ path('app_home') }}">Accueil</a></li>
+        <li><a href="{{ path('app_covoiturage') }}">Covoiturage</a></li>
+        <li><a href="{{ path('app_contact') }}">Contact</a></li>
       </ul>
     </nav>
 
@@ -56,9 +56,9 @@
   <!-- Menu latéral caché -->
   <div id="vertical-navbar" class="vertical-navbar">
     <ul>
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="covoiturage.html">Covoiturage</a></li>
-      <li><a href="formulaire.html">Contact</a></li>
+      <li><a href="{{ path('app_home') }}">Accueil</a></li>
+      <li><a href="{{ path('app_covoiturage') }}">Covoiturage</a></li>
+      <li><a href="{{ path('app_contact') }}">Contact</a></li>
     </ul>
     <button id="close-button">Fermer</button>
   </div>

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %} {% block title %}Contact{% endblock %} {% block
+content %}
+<div class="screen">
+  <h6 class="title-form">Contactez-nous</h6>
+  <div class="Formulaire">
+    {{ form_start(form, { attr: { id: "contactForm" } }) }}
+
+    <div class="form-group">
+      {{ form_label(form.nom, null, { label_attr: { class: "form-label" } }) }}
+      {{
+        form_widget(form.nom, {
+          attr: {
+            class: "form-control",
+            placeholder: "Nom",
+            style: "max-width: 450px"
+          }
+        })
+      }}
+    </div>
+
+    <div class="form-group">
+      {{
+        form_label(form.email, null, { label_attr: { class: "form-label" } })
+      }}
+      {{
+        form_widget(form.email, {
+          attr: {
+            class: "form-control",
+            placeholder: "Email",
+            style: "max-width: 450px"
+          }
+        })
+      }}
+    </div>
+
+    <div class="form-group">
+      {{
+        form_label(form.message, null, { label_attr: { class: "form-label" } })
+      }}
+      {{
+        form_widget(form.message, {
+          attr: {
+            class: "form-control",
+            rows: 5,
+            placeholder: "Votre message",
+            style: "max-width: 450px"
+          }
+        })
+      }}
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="form-button">Envoyer</button>
+    </div>
+
+    {{ form_end(form) }}
+    <!-- message succes ou erreur -->
+    <div id="message-contact"></div>
+  </div>
+</div>
+
+{% endblock %}

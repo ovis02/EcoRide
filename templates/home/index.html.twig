@@ -4,21 +4,41 @@
 
 <div class="container search-container">
   <div class="search-box p-4 shadow">
-    <form class="row g-3">
+    <form action="{{ path('app_covoiturage') }}" method="GET" class="row g-3">
       <div class="col-md-3 col-12">
-        <input type="text" class="form-control" placeholder="Départ" />
+        <input
+          type="text"
+          name="depart"
+          class="form-control"
+          placeholder="Départ"
+          required
+        />
       </div>
       <div class="col-md-3 col-12">
-        <input type="text" class="form-control" placeholder="Destination" />
+        <input
+          type="text"
+          name="destination"
+          class="form-control"
+          placeholder="Destination"
+          required
+        />
       </div>
       <div class="col-md-2 col-12">
-        <input type="date" class="form-control" placeholder="Date" />
+        <input type="date" name="date" class="form-control" required />
       </div>
       <div class="col-md-2 col-12">
-        <input type="number" class="form-control" placeholder="Passagers" />
+        <input
+          type="number"
+          name="passagers"
+          class="form-control"
+          placeholder="Passagers"
+          min="1"
+        />
       </div>
       <div class="col-md-2 col-12 d-grid">
-        <button class="btn btn-primary button-reserch">Rechercher</button>
+        <button type="submit" class="btn btn-primary button-reserch">
+          Rechercher
+        </button>
       </div>
     </form>
   </div>
@@ -45,7 +65,7 @@
     <div class="col-lg-6">
       <div class="image-container text-center text-lg-end">
         <img
-          src="{{ asset('assets/images/vert bleu eco.jpg') }}"
+          src="{{ asset('assets/images/accueil/vert bleu eco.jpg') }}"
           alt="Eco"
           class="img-fluid rounded shadow"
           style="max-height: 350px"
