@@ -11,8 +11,8 @@ class PreferenceFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        // Préférences pour utilisateur1
-        $user1 = $this->getReference('user_1');
+        // Préférences pour Alice
+        $user1 = $this->getReference('user_Alice');
 
         $pref1 = new Preference();
         $pref1->setUtilisateur($user1);
@@ -28,8 +28,8 @@ class PreferenceFixtures extends Fixture implements DependentFixtureInterface
         $pref2->setAutresPreferences('Accepte les pauses');
         $manager->persist($pref2);
 
-        // Préférence pour utilisateur2
-        $user2 = $this->getReference('user_2');
+        // Préférences pour Bob
+        $user2 = $this->getReference('user_Bob');
 
         $pref3 = new Preference();
         $pref3->setUtilisateur($user2);

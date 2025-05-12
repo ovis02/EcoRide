@@ -6,10 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,33 +35,18 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $role = null;
 
-    /**
-     * @var Collection<int, Covoiturage>
-     */
     #[ORM\OneToMany(targetEntity: Covoiturage::class, mappedBy: 'chauffeur')]
     private Collection $covoiturages;
 
-    /**
-     * @var Collection<int, Covoiturage>
-     */
     #[ORM\ManyToMany(targetEntity: Covoiturage::class, mappedBy: 'passagers')]
     private Collection $participations;
 
-    /**
-     * @var Collection<int, Preference>
-     */
     #[ORM\OneToMany(targetEntity: Preference::class, mappedBy: 'utilisateur')]
     private Collection $preferences;
 
-    /**
-     * @var Collection<int, Avis>
-     */
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'auteur')]
     private Collection $avisRediges;
 
-    /**
-     * @var Collection<int, Avis>
-     */
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'cible')]
     private Collection $avisRecus;
 
@@ -83,7 +72,6 @@ class User
     public function setPseudo(string $pseudo): static
     {
         $this->pseudo = $pseudo;
-
         return $this;
     }
 
@@ -95,7 +83,6 @@ class User
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -107,7 +94,6 @@ class User
     public function setMotDePasse(string $motDePasse): static
     {
         $this->motDePasse = $motDePasse;
-
         return $this;
     }
 
@@ -119,7 +105,6 @@ class User
     public function setCredits(int $credits): static
     {
         $this->credits = $credits;
-
         return $this;
     }
 
@@ -131,13 +116,29 @@ class User
     public function setRole(string $role): static
     {
         $this->role = $role;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Covoiturage>
-     */
+    public function getRoles(): array
+    {
+        return [$this->role ?? 'ROLE_USER'];
+    }
+
+    public function getPassword(): string
+    {
+        return $this->motDePasse;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email; 
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Exemple : $this->plainPassword = null;
+    }
+
     public function getCovoiturages(): Collection
     {
         return $this->covoiturages;
@@ -149,25 +150,19 @@ class User
             $this->covoiturages->add($covoiturage);
             $covoiturage->setChauffeur($this);
         }
-
         return $this;
     }
 
     public function removeCovoiturage(Covoiturage $covoiturage): static
     {
         if ($this->covoiturages->removeElement($covoiturage)) {
-            // set the owning side to null (unless already changed)
             if ($covoiturage->getChauffeur() === $this) {
                 $covoiturage->setChauffeur(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Covoiturage>
-     */
     public function getParticipations(): Collection
     {
         return $this->participations;
@@ -179,7 +174,6 @@ class User
             $this->participations->add($participation);
             $participation->addPassager($this);
         }
-
         return $this;
     }
 
@@ -188,13 +182,9 @@ class User
         if ($this->participations->removeElement($participation)) {
             $participation->removePassager($this);
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Preference>
-     */
     public function getPreferences(): Collection
     {
         return $this->preferences;
@@ -206,25 +196,19 @@ class User
             $this->preferences->add($preference);
             $preference->setUtilisateur($this);
         }
-
         return $this;
     }
 
     public function removePreference(Preference $preference): static
     {
         if ($this->preferences->removeElement($preference)) {
-            // set the owning side to null (unless already changed)
             if ($preference->getUtilisateur() === $this) {
                 $preference->setUtilisateur(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Avis>
-     */
     public function getAvisRediges(): Collection
     {
         return $this->avisRediges;
@@ -236,25 +220,19 @@ class User
             $this->avisRediges->add($avisRedige);
             $avisRedige->setAuteur($this);
         }
-
         return $this;
     }
 
     public function removeAvisRedige(Avis $avisRedige): static
     {
         if ($this->avisRediges->removeElement($avisRedige)) {
-            // set the owning side to null (unless already changed)
             if ($avisRedige->getAuteur() === $this) {
                 $avisRedige->setAuteur(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Avis>
-     */
     public function getAvisRecus(): Collection
     {
         return $this->avisRecus;
@@ -266,19 +244,16 @@ class User
             $this->avisRecus->add($avisRecu);
             $avisRecu->setCible($this);
         }
-
         return $this;
     }
 
     public function removeAvisRecu(Avis $avisRecu): static
     {
         if ($this->avisRecus->removeElement($avisRecu)) {
-            // set the owning side to null (unless already changed)
             if ($avisRecu->getCible() === $this) {
                 $avisRecu->setCible(null);
             }
         }
-
         return $this;
     }
 }

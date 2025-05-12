@@ -11,8 +11,8 @@ class AvisFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $auteur = $this->getReference('user_1');
-        $cible = $this->getReference('user_2');
+        $auteur = $this->getReference('user_Alice');
+        $cible = $this->getReference('user_Bob');
 
         $avis1 = new Avis();
         $avis1->setNote('5');

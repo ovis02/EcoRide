@@ -1,20 +1,265 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Résultats covoiturage -
+Ecoride{% endblock %} {% block content %}
+<!-- Barre de recherche -->
 
-{% block title %}Hello CovoiturageController!{% endblock %}
+<div class="container search-container">
+  <div class="search-box p-4 shadow">
+    <form action="{{ path('app_covoiturage') }}" method="GET" class="row g-3">
+      <div class="col-md-3 col-12">
+        <input
+          type="text"
+          name="depart"
+          class="form-control"
+          placeholder="Départ"
+          required
+        />
+      </div>
+      <div class="col-md-3 col-12">
+        <input
+          type="text"
+          name="destination"
+          class="form-control"
+          placeholder="Destination"
+          required
+        />
+      </div>
+      <div class="col-md-2 col-12">
+        <input type="date" name="date" class="form-control" required />
+      </div>
+      <div class="col-md-2 col-12">
+        <input
+          type="number"
+          name="passagers"
+          class="form-control"
+          placeholder="Passagers"
+          min="1"
+        />
+      </div>
+      <div class="col-md-2 col-12 d-grid">
+        <button type="submit" class="btn btn-primary button-reserch">
+          Rechercher
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Filtres à gauche -->
+    <div class="col-md-3">
+      <div class="card p-3">
+        <h5>Filtre Écologique</h5>
+        <form method="get">
+          <div class="mb-2">
+            <label>Voitures électriques</label><br />
+            <input type="radio" name="eco" value="1"
+            {{ search.eco == 1 ? "checked" : "" }} /> Oui <input type="radio"
+            name="eco" value="0" {{ search.eco == 0 ? "checked" : "" }} /> Non
+          </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+          <div class="mb-2">
+            <label>Prix Maximum</label>
+            <input
+              type="number"
+              name="prixMax"
+              class="form-control"
+              value="{{ search.prixMax ?? '' }}"
+            />
+          </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/ecoride/src/Controller/CovoiturageController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/ecoride/templates/covoiturage/index.html.twig</code></li>
-    </ul>
+          <div class="mb-2">
+            <label>Durée Maximum (heures)</label>
+            <input
+              type="number"
+              name="dureeMax"
+              class="form-control"
+              value="{{ search.dureeMax ?? '' }}"
+            />
+          </div>
+
+          <div class="mb-2">
+            <label>Note Minimum</label>
+            <input
+              type="range"
+              name="note"
+              class="form-range"
+              min="1"
+              max="5"
+              value="{{ search.noteMin ?? 3 }}"
+              step="1"
+            />
+            <div class="d-flex justify-content-between">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success w-100">Appliquer</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Liste des covoiturages -->
+    <div class="col-md-9">
+      <div class="row">
+        {% for covoiturage in covoiturages %}
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ covoiturage.chauffeur.pseudo }} -
+                {{ covoiturage.vehicule.marque }}
+                {{ covoiturage.vehicule.modele }}
+              </h5>
+              <p class="card-text">
+                <strong>Trajet :</strong> {{ covoiturage.depart }} →
+                {{ covoiturage.arrivee }}<br />
+                <strong>Date :</strong>
+                {{ covoiturage.dateDepart|date('d/m/Y H:i') }}<br />
+                <strong>Prix :</strong> {{ covoiturage.prix }} €<br />
+                <strong>Places :</strong> {{ covoiturage.nbPlacesDispo }}<br />
+                <strong>Écologique :</strong>
+                {{ covoiturage.estEcologique ? "Oui" : "Non" }}
+              </p>
+              <button
+                class="btn btn-info"
+                data-bs-toggle="modal"
+                data-bs-target="#modalDetails{{ covoiturage.id }}"
+              >
+                Détails
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal de détails -->
+        <div
+          class="modal fade"
+          id="modalDetails{{ covoiturage.id }}"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Détail du covoiturage</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  <strong>Voiture :</strong> {{ covoiturage.vehicule.marque }}
+                  {{ covoiturage.vehicule.modele }} ({{
+                    covoiturage.vehicule.energie
+                  }})
+                </p>
+                <p>
+                  <strong>Préférences conducteur :</strong> {% for pref in
+                  covoiturage.chauffeur.preferences %} -
+                  {{ pref.autresPreferences }}<br />
+                  {% endfor %}
+                </p>
+                <p>
+                  <strong>Avis :</strong> {% for avis in
+                  covoiturage.chauffeur.avisRecus %} Note : {{ avis.note }} -
+                  {{ avis.commentaire }}<br />
+                  {% else %} Aucun avis {% endfor %}
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalParticipation{{ covoiturage.id }}"
+                >
+                  Participer
+                </button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                  Fermer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal de confirmation de participation -->
+        <div
+          class="modal fade"
+          id="modalParticipation{{ covoiturage.id }}"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Confirmation de Participation</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body">
+                <p>Vous êtes sur le point de participer à ce covoiturage.</p>
+
+                <ul class="list-group mb-3">
+                  <li class="list-group-item">
+                    <strong>Places disponibles :</strong>
+                    {{ covoiturage.nbPlacesDispo }}
+                  </li>
+                  {% if app.user %}
+                  <li class="list-group-item">
+                    <strong>Vos crédits disponibles :</strong>
+                    {{ app.user.credits }}
+                  </li>
+                  {% else %}
+                  <li class="list-group-item text-muted">
+                    Crédits : connexion nécessaire (fonctionnalité à venir)
+                  </li>
+                  {% endif %}
+                </ul>
+
+                <p>Souhaitez-vous continuer ?</p>
+              </div>
+
+              <div class="modal-footer">
+                {% if app.user %}
+                <form method="POST" action="#">
+                  <button type="submit" class="btn btn-success">
+                    Confirmer
+                  </button>
+                </form>
+                {% else %}
+                <button type="button" class="btn btn-warning" disabled>
+                  Connexion requise (bientôt disponible)
+                </button>
+                {% endif %}
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Annuler
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+          <p>Aucun covoiturage trouvé.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
