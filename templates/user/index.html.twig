@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %} {% block title %}Tableau de bord utilisateur{%
+endblock %} {% block content %}
+<div class="container mt-5 position-relative">
+  <!-- Bouton déconnexion en haut à droite -->
+  <div class="position-absolute top-0 end-0 mt-2 me-2">
+    <a href="{{ path('app_logout') }}" class="btn btn-danger btn-sm"
+      >🔓 Déconnexion</a
+    >
+  </div>
+
+  <h1>Bienvenue {{ app.user.pseudo }} 👋</h1>
+  <p>Vous êtes connecté avec l'email : {{ app.user.email }}</p>
+  <p>Vous avez {{ app.user.credits }} crédits.</p>
+
+  <hr />
+
+  {% if isChauffeur %}
+  <h3>🚗 Espace Chauffeur</h3>
+  <ul>
+    <li>Consulter mes trajets en tant que chauffeur</li>
+    <li>Gérer mes véhicules</li>
+    <li>Voir mes passagers</li>
+  </ul>
+  {% endif %} {% if isPassager %}
+  <h3>🧍‍♂️ Espace Passager</h3>
+  <ul>
+    <li>Voir mes réservations</li>
+    <li>Noter mes trajets</li>
+  </ul>
+  {% endif %} {% if isChauffeur and isPassager %}
+  <div class="alert alert-info mt-4">
+    Vous êtes à la fois <strong>Chauffeur</strong> et <strong>Passager</strong>.
+    Votre tableau de bord regroupe les deux rôles.
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

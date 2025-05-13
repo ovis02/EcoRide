@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
@@ -24,6 +25,17 @@ class RegistrationForm extends AbstractType
             ])
             ->add('email', TextType::class, [
                 'label' => 'Email',
+            ])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Je suis :',
+                'choices' => [
+                    'Chauffeur' => 'ROLE_CHAUFFEUR',
+                    'Passager' => 'ROLE_PASSAGER',
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => true,
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
