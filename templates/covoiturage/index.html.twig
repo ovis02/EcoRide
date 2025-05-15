@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %} {% block title %}Résultats covoiturage -
 Ecoride{% endblock %} {% block content %}
 <!-- Barre de recherche -->
-
 <div class="container search-container">
   <div class="search-box p-4 shadow">
     <form action="{{ path('app_covoiturage') }}" method="GET" class="row g-3">
@@ -90,11 +89,8 @@ Ecoride{% endblock %} {% block content %}
               step="1"
             />
             <div class="d-flex justify-content-between">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-              <span>5</span>
+              <span>1</span><span>2</span><span>3</span><span>4</span
+              ><span>5</span>
             </div>
           </div>
 
@@ -163,91 +159,23 @@ Ecoride{% endblock %} {% block content %}
                 <p>
                   <strong>Préférences conducteur :</strong> {% for pref in
                   covoiturage.chauffeur.preferences %} -
-                  {{ pref.autresPreferences }}<br />
-                  {% endfor %}
+                  {{ pref.autresPreferences }}<br />{% endfor %}
                 </p>
                 <p>
                   <strong>Avis :</strong> {% for avis in
                   covoiturage.chauffeur.avisRecus %} Note : {{ avis.note }} -
-                  {{ avis.commentaire }}<br />
-                  {% else %} Aucun avis {% endfor %}
+                  {{ avis.commentaire }}<br />{% else %} Aucun avis {% endfor %}
                 </p>
               </div>
               <div class="modal-footer">
                 <button
                   class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalParticipation{{ covoiturage.id }}"
+                  onclick="loadParticipationModal({{ covoiturage.id }})"
                 >
                   Participer
                 </button>
                 <button class="btn btn-secondary" data-bs-dismiss="modal">
                   Fermer
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal de confirmation de participation -->
-        <div
-          class="modal fade"
-          id="modalParticipation{{ covoiturage.id }}"
-          tabindex="-1"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Confirmation de Participation</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-
-              <div class="modal-body">
-                <p>Vous êtes sur le point de participer à ce covoiturage.</p>
-
-                <ul class="list-group mb-3">
-                  <li class="list-group-item">
-                    <strong>Places disponibles :</strong>
-                    {{ covoiturage.nbPlacesDispo }}
-                  </li>
-                  {% if app.user %}
-                  <li class="list-group-item">
-                    <strong>Vos crédits disponibles :</strong>
-                    {{ app.user.credits }}
-                  </li>
-                  {% else %}
-                  <li class="list-group-item text-muted">
-                    Crédits : connexion nécessaire (fonctionnalité à venir)
-                  </li>
-                  {% endif %}
-                </ul>
-
-                <p>Souhaitez-vous continuer ?</p>
-              </div>
-
-              <div class="modal-footer">
-                {% if app.user %}
-                <form method="POST" action="#">
-                  <button type="submit" class="btn btn-success">
-                    Confirmer
-                  </button>
-                </form>
-                {% else %}
-                <button type="button" class="btn btn-warning" disabled>
-                  Connexion requise (bientôt disponible)
-                </button>
-                {% endif %}
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Annuler
                 </button>
               </div>
             </div>
@@ -262,4 +190,7 @@ Ecoride{% endblock %} {% block content %}
     </div>
   </div>
 </div>
+
+<!-- Conteneur pour modales dynamiques -->
+<div id="dynamicModalContainer"></div>
 {% endblock %}

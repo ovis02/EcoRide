@@ -1,0 +1,36 @@
+<div
+  class="modal fade show d-block"
+  tabindex="-1"
+  style="background: rgba(0, 0, 0, 0.7)"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+      </div>
+      <div class="modal-body text-center">
+        {% if erreurRole is defined %}
+        <div class="alert alert-danger">
+          {{ erreurRole }}
+        </div>
+        {% else %}
+        <p>Ce trajet utilise 1 crédit. Souhaitez-vous continuer ?</p>
+        <button
+          class="btn btn-success"
+          id="confirmParticipation"
+          data-url="{{
+            path('covoiturage_participer', { id: covoiturage.id })
+          }}"
+          data-token="{{ csrf_token('participer' ~ covoiturage.id) }}"
+        >
+          Confirmer
+        </button>
+        {% endif %}
+
+        <a href="{{ path('app_covoiturage') }}" class="btn btn-secondary"
+          >Annuler</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
