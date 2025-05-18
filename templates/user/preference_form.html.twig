@@ -1,0 +1,14 @@
+{% extends 'baseUser.html.twig' %} {% block title %}Préférences chauffeur{%
+endblock %} {% block content %}
+<div class="preference-form-box mt-4">
+  <h2>🚘 Mes préférences chauffeur</h2>
+
+  {{ form_start(form) }}
+  {{ form_row(form.fumeur) }}
+  {{ form_row(form.animaux) }}
+  {{ form_row(form.autresPreferences) }}
+
+  <button type="submit" class="btn btn-success mt-3">💾 Enregistrer</button>
+  {{ form_end(form) }}
+</div>
+{% endblock %}

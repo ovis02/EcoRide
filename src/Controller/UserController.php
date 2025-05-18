@@ -6,10 +6,12 @@ use App\Entity\User;
 use App\Entity\Avis;
 use App\Entity\Vehicule;
 use App\Entity\Covoiturage;
-use App\Form\UserProfileType;
+use App\Entity\Preference;
+use App\Form\UserProfilType;
 use App\Form\VehiculeType;
 use App\Form\CovoiturageType;
 use App\Form\AvisType;
+use App\Form\PreferenceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -75,7 +77,7 @@ final class UserController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        $form = $this->createForm(UserProfileType::class, $user);
+        $form = $this->createForm(UserProfilType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -113,28 +115,32 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/mes-vehicules/ajouter', name: 'user_vehicles_add')]
-    public function addVehicle(Request $request, EntityManagerInterface $em): Response
-    {
-        $vehicule = new Vehicule();
-        $vehicule->setProprietaire($this->getUser());
-
-        $form = $this->createForm(VehiculeType::class, $vehicule);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($vehicule);
-            $em->flush();
-
-            $this->addFlash('success', 'Véhicule ajouté avec succès.');
-            return $this->redirectToRoute('user_vehicles');
-        }
-
-        return $this->render('user/vehicule_form.html.twig', [
-            'form' => $form->createView(),
-            'editMode' => false
-        ]);
+ #[Route('/mes-vehicules/ajouter', name: 'user_vehicles_add')]
+public function addVehicle(Request $request, EntityManagerInterface $em): Response
+{
+    if (!$this->isGranted('ROLE_CHAUFFEUR')) {
+        throw $this->createAccessDeniedException("Vous n'avez pas le droit d'accéder à cette page.");
     }
+
+    $vehicule = new Vehicule();
+    $vehicule->setProprietaire($this->getUser());
+
+    $form = $this->createForm(VehiculeType::class, $vehicule);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($vehicule);
+        $em->flush();
+
+        $this->addFlash('success', 'Véhicule ajouté avec succès.');
+        return $this->redirectToRoute('user_vehicles');
+    }
+
+    return $this->render('user/vehicule_form.html.twig', [
+        'form' => $form->createView(),
+        'editMode' => false
+    ]);
+}
 
     #[Route('/mes-vehicules/{id}/modifier', name: 'user_vehicles_edit')]
     public function editVehicle(int $id, Request $request, EntityManagerInterface $em): Response
@@ -177,6 +183,33 @@ final class UserController extends AbstractController
 
         return $this->redirectToRoute('user_vehicles');
     }
+
+    #[Route('/preference/chauffeur', name: 'chauffeur_preference')]
+public function preferenceChauffeur(Request $request, EntityManagerInterface $em): Response
+{
+    /** @var User $user */
+    $user = $this->getUser();
+
+    $preference = $user->getPreference() ?? new Preference();
+    $preference->setUtilisateur($user);
+
+    $form = $this->createForm(PreferenceType::class, $preference);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $user->setPreference($preference); // assure la liaison OneToOne
+
+        $em->persist($preference);
+        $em->flush();
+
+        $this->addFlash('success', 'Préférences chauffeur enregistrées avec succès.');
+        return $this->redirectToRoute('user_dashboard');
+    }
+
+    return $this->render('user/preference_form.html.twig', [
+        'form' => $form->createView()
+    ]);
+}
 
  #[Route('/mes-trajets', name: 'user_trips')]
     public function trips(EntityManagerInterface $em): Response

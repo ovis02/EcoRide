@@ -157,9 +157,18 @@ Ecoride{% endblock %} {% block content %}
                   }})
                 </p>
                 <p>
-                  <strong>Préférences conducteur :</strong> {% for pref in
-                  covoiturage.chauffeur.preferences %} -
-                  {{ pref.autresPreferences }}<br />{% endfor %}
+                  {% if covoiturage.chauffeur.preference %}
+                  <strong>Préférences conducteur :</strong><br />
+                  - Fumeur :
+                  {{ covoiturage.chauffeur.preference.fumeur ? "Oui" : "Non"
+                  }}<br />
+                  - Animaux :
+                  {{ covoiturage.chauffeur.preference.animaux ? "Oui" : "Non"
+                  }}<br />
+                  - {{ covoiturage.chauffeur.preference.autresPreferences }}
+                  {% else %}
+                  <strong>Préférences conducteur :</strong> Non renseignées {%
+                  endif %}
                 </p>
                 <p>
                   <strong>Avis :</strong> {% for avis in

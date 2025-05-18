@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\PreferenceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PreferenceRepository::class)]
+#[UniqueEntity('utilisateur', message: 'Une préférence existe déjà pour cet utilisateur.')]
 class Preference
 {
     #[ORM\Id]
@@ -22,8 +24,8 @@ class Preference
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $autresPreferences = null;
 
-    #[ORM\ManyToOne(inversedBy: 'preferences')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(inversedBy: 'preference', targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $utilisateur = null;
 
     public function getId(): ?int
@@ -39,7 +41,6 @@ class Preference
     public function setFumeur(bool $fumeur): static
     {
         $this->fumeur = $fumeur;
-
         return $this;
     }
 
@@ -51,7 +52,6 @@ class Preference
     public function setAnimaux(bool $animaux): static
     {
         $this->animaux = $animaux;
-
         return $this;
     }
 
@@ -63,7 +63,6 @@ class Preference
     public function setAutresPreferences(?string $autresPreferences): static
     {
         $this->autresPreferences = $autresPreferences;
-
         return $this;
     }
 
@@ -75,7 +74,6 @@ class Preference
     public function setUtilisateur(?User $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
-
         return $this;
     }
 }

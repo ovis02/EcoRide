@@ -68,7 +68,23 @@ Ecoride{% endblock %} {% block content %}
       Vous pouvez rechercher et réserver des trajets proposés par les autres
       chauffeurs.
     </p>
+    {% endif %} {% if 'ROLE_CHAUFFEUR' in app.user.roles %}
+    <div class="text-center mt-3">
+      <a href="{{ path('chauffeur_preference') }}" class="btn btn-primary">
+        ⚙️ Modifier mes préférences chauffeur
+      </a>
+    </div>
     {% endif %}
+
+    <div class="text-center mt-4">
+      <a
+        href="{{ path('app_covoiturage') }}"
+        class="btn btn-outline-secondary btn-sm"
+        style="font-size: 14px"
+      >
+        ← Revenir à la page covoiturage
+      </a>
+    </div>
   </div>
 </div>
 

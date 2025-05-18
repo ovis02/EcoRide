@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use App\Entity\Vehicule;
+use App\Entity\Preference;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,8 +41,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Covoiturage::class, mappedBy: 'passagers')]
     private Collection $participations;
 
-    #[ORM\OneToMany(targetEntity: Preference::class, mappedBy: 'utilisateur')]
-    private Collection $preferences;
+    #[ORM\OneToOne(mappedBy: 'utilisateur', targetEntity: Preference::class, cascade: ['persist', 'remove'])]
+    private ?Preference $preference = null;
 
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'auteur')]
     private Collection $avisRediges;
@@ -57,7 +58,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = ['ROLE_USER'];
         $this->covoiturages = new ArrayCollection();
         $this->participations = new ArrayCollection();
-        $this->preferences = new ArrayCollection();
         $this->avisRediges = new ArrayCollection();
         $this->avisRecus = new ArrayCollection();
         $this->vehicules = new ArrayCollection();
@@ -141,7 +141,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        // Optionnel : nettoyer des données sensibles ici si nécessaire
+        // Nettoyage des données sensibles si nécessaire
     }
 
     public function getCovoiturages(): Collection
@@ -190,27 +190,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPreferences(): Collection
+    public function getPreference(): ?Preference
     {
-        return $this->preferences;
+        return $this->preference;
     }
 
-    public function addPreference(Preference $preference): static
+    public function setPreference(?Preference $preference): static
     {
-        if (!$this->preferences->contains($preference)) {
-            $this->preferences->add($preference);
+        if ($preference && $preference->getUtilisateur() !== $this) {
             $preference->setUtilisateur($this);
         }
-        return $this;
-    }
 
-    public function removePreference(Preference $preference): static
-    {
-        if ($this->preferences->removeElement($preference)) {
-            if ($preference->getUtilisateur() === $this) {
-                $preference->setUtilisateur(null);
-            }
-        }
+        $this->preference = $preference;
         return $this;
     }
 
@@ -286,3 +277,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
+

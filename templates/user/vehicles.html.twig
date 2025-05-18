@@ -3,11 +3,13 @@ endblock %} {% block content %}
 <div class="vehicle-box">
   <h2 class="text-center mb-4 text-primary fw-bold">🚗 Mes véhicules</h2>
 
+  {% if 'ROLE_CHAUFFEUR' in app.user.roles %}
   <div class="text-end mb-3">
     <a href="{{ path('user_vehicles_add') }}" class="btn btn-success">
       ➕ Ajouter un véhicule
     </a>
   </div>
+  {% endif %}
 
   <table class="vehicle-table table table-striped table-bordered">
     <thead class="table-dark">
