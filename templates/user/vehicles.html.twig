@@ -1,69 +1,65 @@
 {% extends 'baseUser.html.twig' %} {% block title %}Mes véhicules - EcoRide{%
 endblock %} {% block content %}
-<div class="dashboard-layout">
-  <main class="main-content">
-    <div class="vehicle-box">
-      <h2 class="text-center mb-4 text-primary fw-bold">🚗 Mes véhicules</h2>
+<div class="vehicle-box">
+  <h2 class="text-center mb-4 text-primary fw-bold">🚗 Mes véhicules</h2>
 
-      <div class="text-end mb-3">
-        <a href="{{ path('user_vehicles_add') }}" class="btn btn-success">
-          ➕ Ajouter un véhicule
-        </a>
-      </div>
+  <div class="text-end mb-3">
+    <a href="{{ path('user_vehicles_add') }}" class="btn btn-success">
+      ➕ Ajouter un véhicule
+    </a>
+  </div>
 
-      <table class="vehicle-table table table-striped table-bordered">
-        <thead class="table-dark">
-          <tr>
-            <th>Marque</th>
-            <th>Modèle</th>
-            <th>Couleur</th>
-            <th>Énergie</th>
-            <th>Plaque</th>
-            <th>1ère Immatriculation</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for vehicule in vehicules %}
-          <tr>
-            <td>{{ vehicule.marque }}</td>
-            <td>{{ vehicule.modele }}</td>
-            <td>{{ vehicule.couleur }}</td>
-            <td>{{ vehicule.energie }}</td>
-            <td>{{ vehicule.plaqueImmatriculation }}</td>
-            <td>{{ vehicule.datePremiereImmatriculation|date('d/m/Y') }}</td>
-            <td>
-              <a
-                href="{{ path('user_vehicles_edit', { id: vehicule.id }) }}"
-                class="btn btn-sm btn-warning"
-              >
-                ✏️ Modifier
-              </a>
-              <form
-                action="{{ path('user_vehicles_delete', { id: vehicule.id }) }}"
-                method="post"
-                style="display: inline-block"
-                onsubmit="return confirm('Voulez-vous vraiment supprimer ce véhicule ?');"
-              >
-                <input
-                  type="hidden"
-                  name="_token"
-                  value="{{ csrf_token('delete' ~ vehicule.id) }}"
-                />
-                <button class="btn btn-sm btn-danger">🗑 Supprimer</button>
-              </form>
-            </td>
-          </tr>
-          {% else %}
-          <tr>
-            <td colspan="7" class="text-center">
-              Aucun véhicule enregistré pour le moment.
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </main>
+  <table class="vehicle-table table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Marque</th>
+        <th>Modèle</th>
+        <th>Couleur</th>
+        <th>Énergie</th>
+        <th>Plaque</th>
+        <th>1ère Immatriculation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vehicule in vehicules %}
+      <tr>
+        <td>{{ vehicule.marque }}</td>
+        <td>{{ vehicule.modele }}</td>
+        <td>{{ vehicule.couleur }}</td>
+        <td>{{ vehicule.energie }}</td>
+        <td>{{ vehicule.plaqueImmatriculation }}</td>
+        <td>{{ vehicule.datePremiereImmatriculation|date('d/m/Y') }}</td>
+        <td>
+          <a
+            href="{{ path('user_vehicles_edit', { id: vehicule.id }) }}"
+            class="btn btn-sm btn-warning"
+          >
+            ✏️ Modifier
+          </a>
+          <form
+            action="{{ path('user_vehicles_delete', { id: vehicule.id }) }}"
+            method="post"
+            style="display: inline-block"
+            onsubmit="return confirm('Voulez-vous vraiment supprimer ce véhicule ?');"
+          >
+            <input
+              type="hidden"
+              name="_token"
+              value="{{ csrf_token('delete' ~ vehicule.id) }}"
+            />
+            <button class="btn btn-sm btn-danger">🗑 Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" class="text-center">
+          Aucun véhicule enregistré pour le moment.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

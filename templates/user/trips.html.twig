@@ -1,132 +1,124 @@
 {% extends 'baseUser.html.twig' %} {% block title %} Mes trajets - EcoRide {%
 endblock %} {% block content %}
-<div class="dashboard-layout">
-  <main class="main-content">
-    <div class="trajets-box">
-      <h2 class="text-center mb-4 text-primary fw-bold">🗓️ Mes trajets</h2>
 
-      <div class="text-end mb-3">
-        <a href="{{ path('trajet_create') }}" class="btn btn-success"
-          >➕ Créer un trajet</a
-        >
-      </div>
+<div class="trajets-box">
+  <h2 class="text-center mb-4 text-primary fw-bold">🗓️ Mes trajets</h2>
 
-      {# === Bloc Chauffeur === #} {% if trajetsChauffeur is not empty %}
-      <h5 class="text-success mt-4">🚘 Chauffeur</h5>
-      <table
-        class="trajets-table table table-striped table-bordered dashboard-table"
-      >
-        <thead class="table-dark">
-          <tr>
-            <th>Départ</th>
-            <th>Arrivée</th>
-            <th>Date</th>
-            <th>Heure</th>
-            <th>Marque</th>
-            <th>Modèle</th>
-            <th>Place</th>
-            <th>Prix</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for trajet in trajetsChauffeur %}
-          <tr>
-            <td>{{ trajet.depart }}</td>
-            <td>{{ trajet.arrivee }}</td>
-            <td>{{ trajet.dateDepart|date('d/m/Y') }}</td>
-            <td>{{ trajet.dateDepart|date('H:i') }}</td>
-            <td>{{ trajet.vehicule.marque }}</td>
-            <td>{{ trajet.vehicule.modele }}</td>
-            <td>{{ trajet.nbPlacesDispo }}</td>
-            <td>{{ trajet.prix }} €</td>
-            <td>
-              <a
-                href="{{ path('trajet_edit', { id: trajet.id }) }}"
-                class="btn btn-sm btn-warning"
-                >✏️</a
-              >
-              <form
-                action="{{ path('trajet_delete', { id: trajet.id }) }}"
-                method="post"
-                style="display: inline-block"
-                onsubmit="return confirm('Confirmer la suppression ?');"
-              >
-                <input
-                  type="hidden"
-                  name="_token"
-                  value="{{ csrf_token('delete' ~ trajet.id) }}"
-                />
-                <button class="btn btn-sm btn-danger">🗑</button>
-              </form>
-            </td>
-          </tr>
-          {% else %}
-          <tr>
-            <td colspan="9" class="text-center">
-              Aucun trajet comme chauffeur.
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% endif %} {# === Bloc Passager === #} {% if trajetsPassager is not empty
-      %}
-      <h5 class="text-info mt-5">🧍 Passager</h5>
-      <table
-        class="trajets-table table table-striped table-bordered dashboard-table"
-      >
-        <thead class="table-dark">
-          <tr>
-            <th>Chauffeur</th>
-            <th>Départ</th>
-            <th>Arrivée</th>
-            <th>Date</th>
-            <th>Heure</th>
-            <th>Véhicule</th>
-            <th>Prix</th>
-            <th>Statut</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for trajet in trajetsPassager %}
-          <tr>
-            <td>{{ trajet.chauffeur.pseudo }}</td>
-            <td>{{ trajet.depart }}</td>
-            <td>{{ trajet.arrivee }}</td>
-            <td>{{ trajet.dateDepart|date('d/m/Y') }}</td>
-            <td>{{ trajet.dateDepart|date('H:i') }}</td>
-            <td>{{ trajet.vehicule.marque }} {{ trajet.vehicule.modele }}</td>
-            <td>{{ trajet.prix }} €</td>
-            <td>Réservé</td>
-            <td>
-              <form
-                action="{{ path('trajet_quit', { id: trajet.id }) }}"
-                method="post"
-                style="display: inline-block"
-                onsubmit="return confirm('Voulez-vous quitter ce trajet ?');"
-              >
-                <input
-                  type="hidden"
-                  name="_token"
-                  value="{{ csrf_token('quit' ~ trajet.id) }}"
-                />
-                <button class="btn btn-sm btn-danger">❌</button>
-              </form>
-            </td>
-          </tr>
-          {% else %}
-          <tr>
-            <td colspan="9" class="text-center">
-              Aucun trajet comme passager.
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% endif %}
-    </div>
-  </main>
+  <div class="text-end mb-3">
+    <a href="{{ path('trajet_create') }}" class="btn btn-success"
+      >➕ Créer un trajet</a
+    >
+  </div>
+
+  {# === Bloc Chauffeur === #} {% if trajetsChauffeur is not empty %}
+  <h5 class="text-success mt-4">🚘 Chauffeur</h5>
+  <table
+    class="trajets-table table table-striped table-bordered dashboard-table"
+  >
+    <thead class="table-dark">
+      <tr>
+        <th>Départ</th>
+        <th>Arrivée</th>
+        <th>Date</th>
+        <th>Heure</th>
+        <th>Marque</th>
+        <th>Modèle</th>
+        <th>Place</th>
+        <th>Prix</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trajet in trajetsChauffeur %}
+      <tr>
+        <td>{{ trajet.depart }}</td>
+        <td>{{ trajet.arrivee }}</td>
+        <td>{{ trajet.dateDepart|date('d/m/Y') }}</td>
+        <td>{{ trajet.dateDepart|date('H:i') }}</td>
+        <td>{{ trajet.vehicule.marque }}</td>
+        <td>{{ trajet.vehicule.modele }}</td>
+        <td>{{ trajet.nbPlacesDispo }}</td>
+        <td>{{ trajet.prix }} €</td>
+        <td>
+          <a
+            href="{{ path('trajet_edit', { id: trajet.id }) }}"
+            class="btn btn-sm btn-warning"
+            >✏️</a
+          >
+          <form
+            action="{{ path('trajet_delete', { id: trajet.id }) }}"
+            method="post"
+            style="display: inline-block"
+            onsubmit="return confirm('Confirmer la suppression ?');"
+          >
+            <input
+              type="hidden"
+              name="_token"
+              value="{{ csrf_token('delete' ~ trajet.id) }}"
+            />
+            <button class="btn btn-sm btn-danger">🗑</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="9" class="text-center">Aucun trajet comme chauffeur.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %} {# === Bloc Passager === #} {% if trajetsPassager is not empty %}
+  <h5 class="text-info mt-5">🧍 Passager</h5>
+  <table
+    class="trajets-table table table-striped table-bordered dashboard-table"
+  >
+    <thead class="table-dark">
+      <tr>
+        <th>Chauffeur</th>
+        <th>Départ</th>
+        <th>Arrivée</th>
+        <th>Date</th>
+        <th>Heure</th>
+        <th>Véhicule</th>
+        <th>Prix</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trajet in trajetsPassager %}
+      <tr>
+        <td>{{ trajet.chauffeur.pseudo }}</td>
+        <td>{{ trajet.depart }}</td>
+        <td>{{ trajet.arrivee }}</td>
+        <td>{{ trajet.dateDepart|date('d/m/Y') }}</td>
+        <td>{{ trajet.dateDepart|date('H:i') }}</td>
+        <td>{{ trajet.vehicule.marque }} {{ trajet.vehicule.modele }}</td>
+        <td>{{ trajet.prix }} €</td>
+        <td>Réservé</td>
+        <td>
+          <form
+            action="{{ path('trajet_quit', { id: trajet.id }) }}"
+            method="post"
+            style="display: inline-block"
+            onsubmit="return confirm('Voulez-vous quitter ce trajet ?');"
+          >
+            <input
+              type="hidden"
+              name="_token"
+              value="{{ csrf_token('quit' ~ trajet.id) }}"
+            />
+            <button class="btn btn-sm btn-danger">❌</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="9" class="text-center">Aucun trajet comme passager.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
 </div>
 {% endblock %}

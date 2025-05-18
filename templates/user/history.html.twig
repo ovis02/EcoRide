@@ -1,76 +1,71 @@
 {% extends 'baseUser.html.twig' %} {% block title %}Historique - EcoRide{%
 endblock %} {% block content %}
-<div class="dashboard-layout">
-  <main class="main-content">
-    <div class="historique-box">
-      <h2 class="text-center mb-4 text-primary fw-bold">
-        📜 Historique des covoiturages
-      </h2>
+<div class="historique-box">
+  <h2 class="text-center mb-4 text-primary fw-bold">
+    📜 Historique des covoiturages
+  </h2>
 
-      <p class="text-muted text-center">
-        Filtres : Sélecteur par date, rôle, statut (à implémenter)
-      </p>
+  <p class="text-muted text-center">
+    Filtres : Sélecteur par date, rôle, statut (à implémenter)
+  </p>
 
-      <table
-        class="historique-table table table-striped table-bordered dashboard-table"
-      >
-        <thead class="table-dark">
-          <tr>
-            <th>Date</th>
-            <th>Départ</th>
-            <th>Arrivée</th>
-            <th>Rôle</th>
-            <th>Statut</th>
-            <th>Note</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for trajet in historiques %}
-          <tr>
-            <td>{{ trajet.dateDepart|date('d/m/Y') }}</td>
-            <td>{{ trajet.depart }}</td>
-            <td>{{ trajet.arrivee }}</td>
-            <td>{{ trajet.role }}</td>
-            <td>{{ trajet.etat | capitalize }}</td>
-            <td>
-              {% if trajet.avis %} ⭐{{ trajet.avis.note }}/5 {% else %} - {%
-              endif %}
-            </td>
-            <td>
-              {% if trajet.chauffeur == app.user %} {% if trajet.etat == 'prévu'
-              %}
-              <a
-                href="{{ path('trajet_start', { id: trajet.id }) }}"
-                class="btn btn-outline-primary btn-sm"
-                >🚀 Démarrer</a
-              >
-              {% elseif trajet.etat == 'en_cours' %}
-              <a
-                href="{{ path('trajet_end', { id: trajet.id }) }}"
-                class="btn btn-outline-success btn-sm"
-                >🏁 Arrivée</a
-              >
-              {% else %}-{% endif %} {% elseif trajet.etat == 'termine' and not
-              trajet.avis and trajet.role == 'passager' %}
-              <a
-                href="{{ path('trajet_avis', { id: trajet.id }) }}"
-                class="btn btn-sm btn-outline-primary"
-                >Ajouter un avis</a
-              >
-              {% else %}-{% endif %}
-            </td>
-          </tr>
-          {% else %}
-          <tr>
-            <td colspan="7" class="text-center">
-              Aucun covoiturage dans l'historique.
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </main>
+  <table
+    class="historique-table table table-striped table-bordered dashboard-table"
+  >
+    <thead class="table-dark">
+      <tr>
+        <th>Date</th>
+        <th>Départ</th>
+        <th>Arrivée</th>
+        <th>Rôle</th>
+        <th>Statut</th>
+        <th>Note</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trajet in historiques %}
+      <tr>
+        <td>{{ trajet.dateDepart|date('d/m/Y') }}</td>
+        <td>{{ trajet.depart }}</td>
+        <td>{{ trajet.arrivee }}</td>
+        <td>{{ trajet.role }}</td>
+        <td>{{ trajet.etat | capitalize }}</td>
+        <td>
+          {% if trajet.avis %} ⭐{{ trajet.avis.note }}/5 {% else %} - {% endif
+          %}
+        </td>
+        <td>
+          {% if trajet.chauffeur == app.user %} {% if trajet.etat == 'prévu' %}
+          <a
+            href="{{ path('trajet_start', { id: trajet.id }) }}"
+            class="btn btn-outline-primary btn-sm"
+            >🚀 Démarrer</a
+          >
+          {% elseif trajet.etat == 'en_cours' %}
+          <a
+            href="{{ path('trajet_end', { id: trajet.id }) }}"
+            class="btn btn-outline-success btn-sm"
+            >🏁 Arrivée</a
+          >
+          {% else %}-{% endif %} {% elseif trajet.etat == 'termine' and not
+          trajet.avis and trajet.role == 'passager' %}
+          <a
+            href="{{ path('trajet_avis', { id: trajet.id }) }}"
+            class="btn btn-sm btn-outline-primary"
+            >Ajouter un avis</a
+          >
+          {% else %}-{% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" class="text-center">
+          Aucun covoiturage dans l'historique.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

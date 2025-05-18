@@ -49,7 +49,9 @@
     </aside>
     <div class="dashboard-layout">
       <!-- Contenu principal -->
-      <main class="main-content">{% block content %}{% endblock %}</main>
+      <main class="main-content">
+        <div class="content-central">{% block content %}{% endblock %}</div>
+      </main>
     </div>
     {% include 'footerUser.html.twig' %}
     <script src="{{ asset('assets/script/script.js') }}"></script>
