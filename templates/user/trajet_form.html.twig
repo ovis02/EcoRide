@@ -1,0 +1,67 @@
+{% extends 'baseUser.html.twig' %} {% block title %}
+{{ editMode ? "Modifier un trajet - EcoRide" : "Créer un trajet - EcoRide" }}
+{% endblock %} {% block content %}
+<div class="dashboard-layout">
+  <main class="main-content">
+    <div class="trajets-box">
+      <h2 class="text-center mb-4 text-primary fw-bold">
+        {{ editMode ? "✏️ Modifier un trajet" : "➕ Créer un nouveau trajet" }}
+      </h2>
+
+      <div class="text-start mb-3">
+        <a href="{{ path('user_trips') }}" class="btn btn-outline-secondary">
+          ⬅ Retour à mes trajets
+        </a>
+      </div>
+
+      {% if not editMode %}
+      <div class="alert alert-info text-center">
+        🪙 Ce trajet coûtera <strong>2 crédits</strong> à votre solde.
+      </div>
+      {% endif %}
+
+      {{ form_start(form) }}
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          {{ form_row(form.depart) }}
+        </div>
+        <div class="col-md-6">
+          {{ form_row(form.arrivee) }}
+        </div>
+
+        <div class="col-md-6">
+          {{ form_row(form.dateDepart) }}
+        </div>
+        <div class="col-md-6">
+          {{ form_row(form.dateArrivee) }}
+        </div>
+
+        <div class="col-md-4">
+          {{ form_row(form.nbPlacesDispo) }}
+        </div>
+        <div class="col-md-4">
+          {{ form_row(form.prix) }}
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+          {{ form_row(form.estEcologique) }}
+        </div>
+
+        <div class="col-md-12">
+          {{ form_row(form.vehicule) }}
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <button class="btn btn-success">
+          {{
+            editMode ? "💾 Enregistrer les modifications" : "🚀 Créer le trajet"
+          }}
+        </button>
+      </div>
+
+      {{ form_end(form) }}
+    </div>
+  </main>
+</div>
+{% endblock %}

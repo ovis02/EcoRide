@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use App\Entity\Vehicule;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -48,6 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'cible')]
     private Collection $avisRecus;
 
+    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Vehicule::class)]
+    private Collection $vehicules;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
@@ -56,6 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->preferences = new ArrayCollection();
         $this->avisRediges = new ArrayCollection();
         $this->avisRecus = new ArrayCollection();
+        $this->vehicules = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -252,6 +257,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->avisRecus->removeElement($avisRecu)) {
             if ($avisRecu->getCible() === $this) {
                 $avisRecu->setCible(null);
+            }
+        }
+        return $this;
+    }
+
+    public function getVehicules(): Collection
+    {
+        return $this->vehicules;
+    }
+
+    public function addVehicule(Vehicule $vehicule): static
+    {
+        if (!$this->vehicules->contains($vehicule)) {
+            $this->vehicules->add($vehicule);
+            $vehicule->setProprietaire($this);
+        }
+        return $this;
+    }
+
+    public function removeVehicule(Vehicule $vehicule): static
+    {
+        if ($this->vehicules->removeElement($vehicule)) {
+            if ($vehicule->getProprietaire() === $this) {
+                $vehicule->setProprietaire(null);
             }
         }
         return $this;

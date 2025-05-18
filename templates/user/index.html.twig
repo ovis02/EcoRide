@@ -1,37 +1,75 @@
-{% extends 'base.html.twig' %} {% block title %}Tableau de bord utilisateur{%
-endblock %} {% block content %}
-<div class="container mt-5 position-relative">
-  <!-- Bouton déconnexion en haut à droite -->
-  <div class="position-absolute top-0 end-0 mt-2 me-2">
-    <a href="{{ path('app_logout') }}" class="btn btn-danger btn-sm"
-      >🔓 Déconnexion</a
-    >
-  </div>
+{% extends 'baseUser.html.twig' %} {% block title %}Espace Utilisateur -
+Ecoride{% endblock %} {% block content %}
 
-  <h1>Bienvenue {{ app.user.pseudo }} 👋</h1>
-  <p>Vous êtes connecté avec l'email : {{ app.user.email }}</p>
-  <p>Vous avez {{ app.user.credits }} crédits.</p>
+<!-- Flash messages -->
+{% for message in app.flashes('success') %}
+<div class="alert alert-success mt-3">
+  {{ message }}
+</div>
+{% endfor %}
 
-  <hr />
+<div class="role-selection-wrapper">
+  <h2 class="text-center mb-4">Tableau de bord</h2>
 
-  {% if isChauffeur %}
-  <h3>🚗 Espace Chauffeur</h3>
-  <ul>
-    <li>Consulter mes trajets en tant que chauffeur</li>
-    <li>Gérer mes véhicules</li>
-    <li>Voir mes passagers</li>
-  </ul>
-  {% endif %} {% if isPassager %}
-  <h3>🧍‍♂️ Espace Passager</h3>
-  <ul>
-    <li>Voir mes réservations</li>
-    <li>Noter mes trajets</li>
-  </ul>
-  {% endif %} {% if isChauffeur and isPassager %}
-  <div class="alert alert-info mt-4">
-    Vous êtes à la fois <strong>Chauffeur</strong> et <strong>Passager</strong>.
-    Votre tableau de bord regroupe les deux rôles.
+  {% if 'ROLE_CHAUFFEUR' not in app.user.roles or 'ROLE_PASSAGER' not in
+  app.user.roles %}
+  <div class="role-box">
+    <h4>Complétez votre profil</h4>
+    <p>Vous pouvez ajouter un rôle supplémentaire à votre compte :</p>
+
+    <div class="role-buttons">
+      {% if 'ROLE_CHAUFFEUR' not in app.user.roles %}
+      <form
+        method="post"
+        action="{{ path('ajouter_role', { role: 'chauffeur' }) }}"
+      >
+        <button class="role-btn">Devenir Chauffeur</button>
+      </form>
+      {% endif %} {% if 'ROLE_PASSAGER' not in app.user.roles %}
+      <form
+        method="post"
+        action="{{ path('ajouter_role', { role: 'passager' }) }}"
+      >
+        <button class="role-btn">Devenir Passager</button>
+      </form>
+      {% endif %}
+    </div>
   </div>
   {% endif %}
+
+  <div class="role-info">
+    <p>
+      <strong>Bienvenue {{ app.user.pseudo }} 👋</strong>
+    </p>
+    <p>Adresse email : {{ app.user.email }}</p>
+    <p>
+      Crédits disponibles : <strong>{{ app.user.credits }}</strong>
+    </p>
+
+    <hr />
+
+    {% if isChauffeur and isPassager %}
+    <p><strong>Rôle actuel :</strong> Chauffeur & Passager</p>
+    <p>
+      Vous pouvez proposer des trajets, gérer vos véhicules, et réserver des
+      trajets en tant que passager.
+    </p>
+
+    {% elseif isChauffeur %}
+    <p><strong>Rôle actuel :</strong> Chauffeur</p>
+    <p>
+      Vous pouvez proposer des trajets, gérer vos véhicules et consulter vos
+      passagers.
+    </p>
+
+    {% elseif isPassager %}
+    <p><strong>Rôle actuel :</strong> Passager</p>
+    <p>
+      Vous pouvez rechercher et réserver des trajets proposés par les autres
+      chauffeurs.
+    </p>
+    {% endif %}
+  </div>
 </div>
+
 {% endblock %}

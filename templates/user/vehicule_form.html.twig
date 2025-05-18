@@ -1,0 +1,64 @@
+{% extends 'baseUser.html.twig' %} {% block title %}{{
+  editMode ? "Modifier un véhicule" : "Ajouter un véhicule"
+}}
+- EcoRide{% endblock %} {% block content %}
+<div class="dashboard-layout">
+  <main class="main-content">
+    <div class="vehicle-box">
+      <h2 class="text-center mb-4 text-primary fw-bold">
+        {{ editMode ? "✏️ Modifier un véhicule" : "➕ Ajouter un véhicule" }}
+      </h2>
+
+      {{ form_start(form) }}
+      <div class="mb-3">
+        {{ form_label(form.marque) }}
+        {{ form_widget(form.marque, { attr: { class: "form-control" } }) }}
+      </div>
+
+      <div class="mb-3">
+        {{ form_label(form.modele) }}
+        {{ form_widget(form.modele, { attr: { class: "form-control" } }) }}
+      </div>
+
+      <div class="mb-3">
+        {{ form_label(form.couleur) }}
+        {{ form_widget(form.couleur, { attr: { class: "form-control" } }) }}
+      </div>
+
+      <div class="mb-3">
+        {{ form_label(form.energie) }}
+        {{ form_widget(form.energie, { attr: { class: "form-control" } }) }}
+      </div>
+
+      <div class="mb-3">
+        {{ form_label(form.plaqueImmatriculation) }}
+        {{
+          form_widget(form.plaqueImmatriculation, {
+            attr: { class: "form-control" }
+          })
+        }}
+      </div>
+
+      <div class="mb-3">
+        {{ form_label(form.datePremiereImmatriculation) }}
+        {{
+          form_widget(form.datePremiereImmatriculation, {
+            attr: { class: "form-control" }
+          })
+        }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        {{ editMode ? "Mettre à jour" : "Ajouter" }} le véhicule
+      </button>
+      {{ form_end(form) }}
+
+      <div class="mt-3">
+        <a href="{{ path('user_vehicles') }}" class="btn btn-secondary"
+          >Retour à la liste</a
+        >
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

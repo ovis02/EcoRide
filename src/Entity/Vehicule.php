@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\VehiculeRepository;
+use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -34,11 +35,14 @@ class Vehicule
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datePremiereImmatriculation = null;
 
-    /**
-     * @var Collection<int, Covoiturage>
-     */
     #[ORM\OneToMany(targetEntity: Covoiturage::class, mappedBy: 'vehicule')]
     private Collection $covoiturages;
+
+    #[ORM\ManyToOne(inversedBy: 'vehicules')]
+    #[ORM\JoinColumn(nullable: false)]
+
+
+    private ?User $proprietaire = null;
 
     public function __construct()
     {
@@ -58,7 +62,6 @@ class Vehicule
     public function setMarque(string $marque): static
     {
         $this->marque = $marque;
-
         return $this;
     }
 
@@ -70,7 +73,6 @@ class Vehicule
     public function setModele(string $modele): static
     {
         $this->modele = $modele;
-
         return $this;
     }
 
@@ -82,7 +84,6 @@ class Vehicule
     public function setCouleur(string $couleur): static
     {
         $this->couleur = $couleur;
-
         return $this;
     }
 
@@ -94,7 +95,6 @@ class Vehicule
     public function setEnergie(string $energie): static
     {
         $this->energie = $energie;
-
         return $this;
     }
 
@@ -106,7 +106,6 @@ class Vehicule
     public function setPlaqueImmatriculation(string $plaqueImmatriculation): static
     {
         $this->plaqueImmatriculation = $plaqueImmatriculation;
-
         return $this;
     }
 
@@ -118,7 +117,6 @@ class Vehicule
     public function setDatePremiereImmatriculation(\DateTimeInterface $datePremiereImmatriculation): static
     {
         $this->datePremiereImmatriculation = $datePremiereImmatriculation;
-
         return $this;
     }
 
@@ -136,19 +134,27 @@ class Vehicule
             $this->covoiturages->add($covoiturage);
             $covoiturage->setVehicule($this);
         }
-
         return $this;
     }
 
     public function removeCovoiturage(Covoiturage $covoiturage): static
     {
         if ($this->covoiturages->removeElement($covoiturage)) {
-            // set the owning side to null (unless already changed)
             if ($covoiturage->getVehicule() === $this) {
                 $covoiturage->setVehicule(null);
             }
         }
+        return $this;
+    }
 
+    public function getProprietaire(): ?User
+    {
+        return $this->proprietaire;
+    }
+
+    public function setProprietaire(?User $proprietaire): static
+    {
+        $this->proprietaire = $proprietaire;
         return $this;
     }
 }

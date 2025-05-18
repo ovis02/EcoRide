@@ -1,0 +1,30 @@
+{% extends 'baseUser.html.twig' %} {% block title %}Mon profil - EcoRide{%
+endblock %} {% block content %}
+<h2 class="mb-4 text-center">Gérer mon profil</h2>
+
+{% for message in app.flashes('success') %}
+<div class="alert alert-success text-center">{{ message }}</div>
+{% endfor %}
+
+{{ form_start(form) }}
+<div class="form-group mb-3">
+  {{ form_label(form.pseudo) }}
+  {{ form_widget(form.pseudo, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group mb-3">
+  {{ form_label(form.email) }}
+  {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group mb-3">
+  {{ form_label(form.motDePasse) }}
+  {{ form_widget(form.motDePasse, {'attr': {'class': 'form-control'}}) }}
+  <small class="form-text text-muted">
+    Laisser vide si vous ne souhaitez pas modifier le mot de passe.
+  </small>
+</div>
+
+<div class="text-center">
+  {{ form_widget(form.save) }}
+</div>
+{{ form_end(form) }}
+{% endblock %}

@@ -51,9 +51,20 @@ class Covoiturage
     #[ORM\JoinColumn(nullable: false)]
     private ?Vehicule $vehicule = null;
 
+    #[ORM\Column(length: 20)]
+    private ?string $etat = 'prévu';
+
+    /**
+     * @var Collection<int, User>
+     */
+   #[ORM\ManyToMany(targetEntity: User::class)]
+    #[ORM\JoinTable(name: 'covoiturage_validations')]
+    private Collection $passagersValidations;
+
     public function __construct()
     {
         $this->passagers = new ArrayCollection();
+        $this->passagersValidations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +201,40 @@ class Covoiturage
     {
         $this->vehicule = $vehicule;
 
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): static
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getPassagersValidations(): Collection
+    {
+        return $this->passagersValidations;
+    }
+
+    public function addPassagerValidation(User $user): static
+    {
+        if (!$this->passagersValidations->contains($user)) {
+            $this->passagersValidations->add($user);
+        }
+        return $this;
+    }
+
+    public function removePassagerValidation(User $user): static
+    {
+        $this->passagersValidations->removeElement($user);
         return $this;
     }
 }
