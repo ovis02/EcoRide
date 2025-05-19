@@ -2,6 +2,8 @@ security:
   password_hashers:
     App\Entity\User:
       algorithm: auto
+    App\Entity\Employe:
+      algorithm: auto
 
   providers:
     app_user_provider:
@@ -9,10 +11,25 @@ security:
         class: App\Entity\User
         property: email
 
+    employe_provider:
+      entity:
+        class: App\Entity\Employe
+        property: email
+
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
+
+    employe:
+      pattern: ^/employe
+      lazy: true
+      provider: employe_provider
+      custom_authenticators:
+        - App\Security\EmployeAuthenticator
+      logout:
+        path: employe_logout
+        target: /employe/login
 
     main:
       lazy: true
@@ -24,6 +41,7 @@ security:
         target: /
 
   access_control:
+    - { path: ^/employe/login, roles: PUBLIC_ACCESS }
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/employe, roles: ROLE_EMPLOYE }
     - { path: ^/user, roles: ROLE_USER }

@@ -1,9 +1,24 @@
 <header>
-  {% if app.user %}
+  {# Logo qui redirige selon le rôle #} {% if is_granted('ROLE_ADMIN') %}
+  <a
+    href="#"
+    onclick="alert('Dashboard administrateur à venir !')"
+    class="admin"
+  >
+    <img src="{{ asset('assets/images/logo/iconebleu.png') }}" alt="Admin" />
+  </a>
+  {% elseif is_granted('ROLE_EMPLOYE') %}
+  <a href="{{ path('employe_dashboard') }}" class="admin">
+    <img
+      src="{{ asset('assets/images/logo/iconebleu.png') }}"
+      alt="Dashboard Employé"
+    />
+  </a>
+  {% elseif is_granted('ROLE_USER') %}
   <a href="{{ path('user_dashboard') }}" class="admin">
     <img
       src="{{ asset('assets/images/logo/iconebleu.png') }}"
-      alt="Tableau de bord"
+      alt="Dashboard Utilisateur"
     />
   </a>
   {% else %}
@@ -24,7 +39,11 @@
     </div>
 
     <div class="text-center flex-grow-1">
-      {% if 'ROLE_CHAUFFEUR' in app.user.roles and 'ROLE_PASSAGER' in
+      {% if app.user %} {% if 'ROLE_ADMIN' in app.user.roles %}
+      <h4 class="mb-0 fw-bold text-primary">Espace Administrateur</h4>
+      {% elseif 'ROLE_EMPLOYE' in app.user.roles %}
+      <h4 class="mb-0 fw-bold text-primary">Espace Employé</h4>
+      {% elseif 'ROLE_CHAUFFEUR' in app.user.roles and 'ROLE_PASSAGER' in
       app.user.roles %}
       <h4 class="mb-0 fw-bold text-primary">Espace Chauffeur & Passager</h4>
       {% elseif 'ROLE_CHAUFFEUR' in app.user.roles %}
@@ -33,13 +52,28 @@
       <h4 class="mb-0 fw-bold text-primary">Espace Passager</h4>
       {% else %}
       <h4 class="mb-0 fw-bold text-primary">Espace Utilisateur</h4>
+      {% endif %} {% else %}
+      <h4 class="mb-0 fw-bold text-primary">Bienvenue sur EcoRide</h4>
       {% endif %}
     </div>
 
     <div>
+      {% if app.user %} {% if 'ROLE_EMPLOYE' in app.user.roles %}
+      <a href="{{ path('employe_logout') }}" class="btn btn-outline-danger"
+        >Déconnexion</a
+      >
+      {% elseif 'ROLE_USER' in app.user.roles %}
       <a href="{{ path('app_logout') }}" class="btn btn-outline-danger"
         >Déconnexion</a
       >
+      {% elseif 'ROLE_ADMIN' in app.user.roles %}
+      <a
+        href="#"
+        onclick="alert('Déconnexion admin à venir !')"
+        class="btn btn-outline-danger"
+        >Déconnexion</a
+      >
+      {% endif %} {% endif %}
     </div>
   </div>
 </header>

@@ -1,19 +1,52 @@
 <header>
-  {% if app.user %}
-  <a href="{{ path('user_dashboard') }}" class="admin">
-    <img
-      src="{{ asset('assets/images/logo/iconebleu.png') }}"
-      alt="Tableau de bord"
-    />
-  </a>
-  {% else %}
-  <a href="{{ path('app_login') }}" class="admin">
-    <img
-      src="{{ asset('assets/images/logo/iconebleu.png') }}"
-      alt="Connexion"
-    />
-  </a>
-  {% endif %}
+  <div class="login-menu admin">
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="#" onclick="alert('Dashboard administrateur à venir !')">
+      <img
+        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        alt="Dashboard Admin"
+      />
+    </a>
+    {% elseif is_granted('ROLE_EMPLOYE') %}
+    <a href="{{ path('employe_dashboard') }}">
+      <img
+        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        alt="Dashboard Employé"
+      />
+    </a>
+    {% elseif is_granted('ROLE_USER') %}
+    <a href="{{ path('user_dashboard') }}">
+      <img
+        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        alt="Dashboard Utilisateur"
+      />
+    </a>
+    {% else %}
+    <div class="dropdown-wrapper">
+      <button class="login-toggle" type="button">
+        <img
+          src="{{ asset('assets/images/logo/iconebleu.png') }}"
+          alt="Connexion"
+        />
+      </button>
+      <div class="login-dropdown">
+        <a class="login-user" href="{{ path('app_login') }}"
+          >Connexion Utilisateur</a
+        >
+        <a class="login-employe" href="{{ path('employe_login') }}"
+          >Connexion Employé</a
+        >
+        <a
+          class="login-admin disabled"
+          href="#"
+          onclick="alert('Interface administrateur bientôt disponible')"
+        >
+          Connexion Admin (à venir)
+        </a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
 
   <div class="header-container">
     <div class="logo">
@@ -31,12 +64,12 @@
       </ul>
     </nav>
 
-    <!-- Bouton menu burger pour mobile -->
+    <!-- Menu burger mobile -->
     <div class="burger-container">
       <a href="#" id="logo-burger-button">
         <img
           id="logo-burger"
-          src="{{ asset('assets/images/logo/LOGO.png') }}"
+          src="{{ asset('assets/images/logo/logoburger.png') }}"
           alt="menu"
           height="40"
           width="40"

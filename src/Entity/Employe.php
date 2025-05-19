@@ -6,9 +6,11 @@ use App\Repository\EmployeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: EmployeRepository::class)]
-class Employe
+class Employe implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,21 +20,15 @@ class Employe
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
-  #[ORM\Column(length: 255, unique: true)]
-private ?string $email = null;
+    #[ORM\Column(length: 255, unique: true)]
+    private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $motDePasse = null;
 
-    /**
-     * @var Collection<int, Avis>
-     */
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'gerePar')]
     private Collection $avisGere;
 
-    /**
-     * @var Collection<int, MessageContact>
-     */
     #[ORM\OneToMany(targetEntity: MessageContact::class, mappedBy: 'traitePar')]
     private Collection $messageContacts;
 
@@ -58,7 +54,6 @@ private ?string $email = null;
     public function setUsername(string $username): static
     {
         $this->username = $username;
-
         return $this;
     }
 
@@ -70,7 +65,6 @@ private ?string $email = null;
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -82,13 +76,31 @@ private ?string $email = null;
     public function setMotDePasse(string $motDePasse): static
     {
         $this->motDePasse = $motDePasse;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Avis>
-     */
+    // === Obligatoire pour UserInterface ===
+
+    public function getRoles(): array
+    {
+        return ['ROLE_EMPLOYE'];
+    }
+
+    public function getPassword(): string
+    {
+        return $this->motDePasse;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Rien à faire ici pour l'instant
+    }
+
     public function getAvisGere(): Collection
     {
         return $this->avisGere;
@@ -100,25 +112,19 @@ private ?string $email = null;
             $this->avisGere->add($avisGere);
             $avisGere->setGerePar($this);
         }
-
         return $this;
     }
 
     public function removeAvisGere(Avis $avisGere): static
     {
         if ($this->avisGere->removeElement($avisGere)) {
-            // set the owning side to null (unless already changed)
             if ($avisGere->getGerePar() === $this) {
                 $avisGere->setGerePar(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, MessageContact>
-     */
     public function getMessageContacts(): Collection
     {
         return $this->messageContacts;
@@ -130,19 +136,16 @@ private ?string $email = null;
             $this->messageContacts->add($messageContact);
             $messageContact->setTraitePar($this);
         }
-
         return $this;
     }
 
     public function removeMessageContact(MessageContact $messageContact): static
     {
         if ($this->messageContacts->removeElement($messageContact)) {
-            // set the owning side to null (unless already changed)
             if ($messageContact->getTraitePar() === $this) {
                 $messageContact->setTraitePar(null);
             }
         }
-
         return $this;
     }
 
@@ -154,7 +157,6 @@ private ?string $email = null;
     public function setCreePar(?Administrateur $creePar): static
     {
         $this->creePar = $creePar;
-
         return $this;
     }
 }

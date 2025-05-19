@@ -8,10 +8,12 @@
           class="logo-footer img-fluid"
         />
       </div>
+      {# Section "Besoin d'aide ?" visible uniquement hors page de contact #} {%
+      if app.request.attributes.get('_route') != 'app_contact' %}
       <div class="col-md-4">
         <h5 class="footer-title">Besoin d'aide ?</h5>
         <a
-          href="formulaire.php"
+          href="{{ path('app_contact') }}"
           class="btn btn-white contact-button"
           style="
             background-color: white;
@@ -21,6 +23,7 @@
           >Contacter nous</a
         >
       </div>
+      {% endif %}
 
       <div class="col-md-4">
         <h5 class="footer-title">Suivez nous</h5>
