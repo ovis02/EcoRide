@@ -1,34 +1,48 @@
 <header>
-  {# Logo qui redirige selon le rôle #} {% if is_granted('ROLE_ADMIN') %}
-  <a
-    href="#"
-    onclick="alert('Dashboard administrateur à venir !')"
-    class="admin"
-  >
-    <img src="{{ asset('assets/images/logo/iconebleu.png') }}" alt="Admin" />
-  </a>
-  {% elseif is_granted('ROLE_EMPLOYE') %}
-  <a href="{{ path('employe_dashboard') }}" class="admin">
-    <img
-      src="{{ asset('assets/images/logo/iconebleu.png') }}"
-      alt="Dashboard Employé"
-    />
-  </a>
-  {% elseif is_granted('ROLE_USER') %}
-  <a href="{{ path('user_dashboard') }}" class="admin">
-    <img
-      src="{{ asset('assets/images/logo/iconebleu.png') }}"
-      alt="Dashboard Utilisateur"
-    />
-  </a>
-  {% else %}
-  <a href="{{ path('app_login') }}" class="admin">
-    <img
-      src="{{ asset('assets/images/logo/iconebleu.png') }}"
-      alt="Connexion"
-    />
-  </a>
-  {% endif %}
+  <div class="login-menu admin">
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin_dashboard') }}">
+      <img
+        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        alt="Dashboard Admin"
+      />
+    </a>
+    {% elseif is_granted('ROLE_EMPLOYE') %}
+    <a href="{{ path('employe_dashboard') }}">
+      <img
+        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        alt="Dashboard Employé"
+      />
+    </a>
+    {% elseif is_granted('ROLE_USER') %}
+    <a href="{{ path('user_dashboard') }}">
+      <img
+        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        alt="Dashboard Utilisateur"
+      />
+    </a>
+    {% else %}
+    <div class="dropdown-wrapper">
+      <button class="login-toggle" type="button">
+        <img
+          src="{{ asset('assets/images/logo/iconebleu.png') }}"
+          alt="Connexion"
+        />
+      </button>
+      <div class="login-dropdown">
+        <a class="login-user" href="{{ path('app_login') }}"
+          >Connexion Utilisateur</a
+        >
+        <a class="login-employe" href="{{ path('employe_login') }}"
+          >Connexion Employé</a
+        >
+        <a class="login-admin" href="{{ path('admin_login') }}"
+          >Connexion Admin</a
+        >
+      </div>
+    </div>
+    {% endif %}
+  </div>
 
   <div class="header-container">
     <div class="logo">
@@ -67,10 +81,7 @@
         >Déconnexion</a
       >
       {% elseif 'ROLE_ADMIN' in app.user.roles %}
-      <a
-        href="#"
-        onclick="alert('Déconnexion admin à venir !')"
-        class="btn btn-outline-danger"
+      <a href="{{ path('admin_logout') }}" class="btn btn-outline-danger"
         >Déconnexion</a
       >
       {% endif %} {% endif %}

@@ -1,7 +1,7 @@
 <header>
   <div class="login-menu admin">
     {% if is_granted('ROLE_ADMIN') %}
-    <a href="#" onclick="alert('Dashboard administrateur à venir !')">
+    <a href="{{ path('admin_dashboard') }}">
       <img
         src="{{ asset('assets/images/logo/iconebleu.png') }}"
         alt="Dashboard Admin"
@@ -36,13 +36,9 @@
         <a class="login-employe" href="{{ path('employe_login') }}"
           >Connexion Employé</a
         >
-        <a
-          class="login-admin disabled"
-          href="#"
-          onclick="alert('Interface administrateur bientôt disponible')"
+        <a class="login-admin" href="{{ path('admin_login') }}"
+          >Connexion Admin</a
         >
-          Connexion Admin (à venir)
-        </a>
       </div>
     </div>
     {% endif %}

@@ -6,9 +6,11 @@ use App\Repository\AdministrateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: AdministrateurRepository::class)]
-class Administrateur
+class Administrateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +20,7 @@ class Administrateur
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -48,7 +50,6 @@ class Administrateur
     public function setUsername(string $username): static
     {
         $this->username = $username;
-
         return $this;
     }
 
@@ -60,7 +61,6 @@ class Administrateur
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -72,7 +72,6 @@ class Administrateur
     public function setMotDePasse(string $motDePasse): static
     {
         $this->motDePasse = $motDePasse;
-
         return $this;
     }
 
@@ -97,12 +96,33 @@ class Administrateur
     public function removeEmployesCree(Employe $employesCree): static
     {
         if ($this->employesCrees->removeElement($employesCree)) {
-            // set the owning side to null (unless already changed)
             if ($employesCree->getCreePar() === $this) {
                 $employesCree->setCreePar(null);
             }
         }
 
         return $this;
+    }
+
+    // Implémentation des interfaces de sécurité
+
+    public function getRoles(): array
+    {
+        return ['ROLE_ADMIN'];
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email; // Utilisé comme identifiant de connexion
+    }
+
+    public function getPassword(): string
+    {
+        return $this->motDePasse;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Pas de données sensibles à nettoyer pour l’instant
     }
 }

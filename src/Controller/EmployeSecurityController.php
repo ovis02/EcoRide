@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Repository\AvisRepository;
+use App\Repository\IncidentRepository;
+use App\Repository\MessageContactRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class EmployeSecurityController extends AbstractController
@@ -12,29 +15,40 @@ class EmployeSecurityController extends AbstractController
     #[Route('/employe/login', name: 'employe_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // Récupère la dernière erreur de connexion, s'il y en a une
         $error = $authenticationUtils->getLastAuthenticationError();
-        // Récupère le dernier email saisi par l'utilisateur
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        // Affiche la page de connexion (le formulaire)
-        return $this->render('employe/login.html.twig', [ // Utilise le chemin vers ton template de connexion
+        return $this->render('employe/login.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
         ]);
     }
 
     #[Route('/employe/logout', name: 'employe_logout')]
     public function logout(): void
     {
-        // Cette méthode est gérée par le firewall de Symfony.  Elle doit rester vide.
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new \LogicException('Cette méthode peut rester vide : elle est interceptée par le firewall.');
     }
 
-    #[Route('/employe/dashboard', name: 'employe_dashboard')] // Ajoute cette route pour le dashboard
-    public function dashboard(): Response
-    {
-        // Affiche la page de dashboard après la connexion
-        return $this->render('employe/index.html.twig'); // Utilise le chemin vers ton template de dashboard
+    #[Route('/employe/dashboard', name: 'employe_dashboard')]
+    public function dashboard(
+        AvisRepository $avisRepository,
+        IncidentRepository $incidentRepository,
+        MessageContactRepository $messageContactRepository
+    ): Response {
+        //  Avis à valider
+        $avis_a_valider = $avisRepository->findBy(['valide' => false]);
+
+        // Incidents non traités
+        $incidents = $incidentRepository->findBy(['traite' => false]);
+
+        // Tous les messages, pour afficher aussi ceux déjà traités
+        $messages = $messageContactRepository->findAll();
+
+        return $this->render('employe/index.html.twig', [
+            'avis_a_valider' => $avis_a_valider,
+            'incidents' => $incidents,
+            'messages' => $messages,
+        ]);
     }
 }

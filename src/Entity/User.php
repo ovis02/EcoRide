@@ -53,6 +53,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Vehicule::class)]
     private Collection $vehicules;
 
+    /**
+     * @var Collection<int, Incident>
+     */
+    #[ORM\OneToMany(targetEntity: Incident::class, mappedBy: 'signalPar')]
+    private Collection $incidents;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
@@ -61,6 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->avisRediges = new ArrayCollection();
         $this->avisRecus = new ArrayCollection();
         $this->vehicules = new ArrayCollection();
+        $this->incidents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -274,6 +281,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $vehicule->setProprietaire(null);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Incident>
+     */
+    public function getIncidents(): Collection
+    {
+        return $this->incidents;
+    }
+
+    public function addIncident(Incident $incident): static
+    {
+        if (!$this->incidents->contains($incident)) {
+            $this->incidents->add($incident);
+            $incident->setSignalPar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIncident(Incident $incident): static
+    {
+        if ($this->incidents->removeElement($incident)) {
+            // set the owning side to null (unless already changed)
+            if ($incident->getSignalPar() === $this) {
+                $incident->setSignalPar(null);
+            }
+        }
+
         return $this;
     }
 }

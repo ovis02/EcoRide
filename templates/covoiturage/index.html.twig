@@ -171,9 +171,12 @@ Ecoride{% endblock %} {% block content %}
                   endif %}
                 </p>
                 <p>
-                  <strong>Avis :</strong> {% for avis in
-                  covoiturage.chauffeur.avisRecus %} Note : {{ avis.note }} -
-                  {{ avis.commentaire }}<br />{% else %} Aucun avis {% endfor %}
+                  <strong>Avis :</strong>
+                  {% set avis_valides = covoiturage.chauffeur.avisRecus|filter(a
+                  => a.valide) %} {% if avis_valides is not empty %} {% for avis
+                  in avis_valides %} Note : {{ avis.note }} -
+                  {{ avis.commentaire }}<br />
+                  {% endfor %} {% else %} Aucun avis {% endif %}
                 </p>
               </div>
               <div class="modal-footer">

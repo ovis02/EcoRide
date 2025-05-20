@@ -1,2 +1,158 @@
-{% extends 'baseUserEmploye.html.twig' %} {% block title %}Connexion Employé -
-EcoRide{% endblock %} {% block content %} {% endblock %}
+{% extends 'baseUserEmploye.html.twig' %} {% block title %}Tableau de bord
+Employé - EcoRide{% endblock %} {% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <!-- Section validation des avis -->
+    <div class="col-12 mb-4 p-4 employe-section employe-avis">
+      <h4 class="section-title">Validation des avis</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Pseudo</th>
+            <th>Note</th>
+            <th>Commentaire</th>
+            <th>Valider</th>
+            <th>Supprimer</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for avis in avis_a_valider %}
+          <tr>
+            <td>{{ avis.auteur.pseudo }}</td>
+            <td>{{ avis.note }}</td>
+            <td>{{ avis.commentaire }}</td>
+            <td>
+              <a
+                href="{{ path('employe_valider_avis', { id: avis.id }) }}"
+                class="btn btn-success btn-sm"
+                >Valider</a
+              >
+            </td>
+            <td>
+              <a
+                href="{{ path('employe_supprimer_avis', { id: avis.id }) }}"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('Confirmer la suppression de cet avis ?');"
+                >Supprimer</a
+              >
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5" class="text-center">Aucun avis à valider</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section covoiturages signalés -->
+    <div class="col-12 mb-4 p-4 employe-section employe-incidents">
+      <h4 class="section-title">Covoiturages signalés</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Numéro</th>
+            <th>Passager</th>
+            <th>Chauffeur</th>
+            <th>Départ - Arrivée</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for incident in incidents %}
+          <tr>
+            <td>{{ incident.id }}</td>
+            <td>{{ incident.signalPar.pseudo }}</td>
+            <td>{{ incident.covoiturage.chauffeur.pseudo }}</td>
+            <td>
+              {{ incident.covoiturage.depart }} -
+              {{ incident.covoiturage.arrivee }}
+            </td>
+            <td>{{ incident.description }}</td>
+            <td>
+              <a
+                href="{{ path('employe_voir_incident', { id: incident.id }) }}"
+                class="btn btn-info btn-sm"
+                >Voir</a
+              >
+              <a
+                href="{{
+                  path('employe_traite_incident', { id: incident.id })
+                }}"
+                class="btn btn-success btn-sm"
+                >Traité</a
+              >
+              <a
+                href="{{
+                  path('employe_supprimer_incident', { id: incident.id })
+                }}"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('Confirmer la suppression de cet incident ?');"
+                >Supprimer</a
+              >
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="6" class="text-center">Aucun incident signalé</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section messages de contact -->
+    <div class="col-12 p-4 employe-section employe-messages">
+      <h4 class="section-title">Messages des visiteurs</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for msg in messages %}
+          <tr>
+            <td>{{ msg.nom }}</td>
+            <td>{{ msg.email }}</td>
+            <td>{{ msg.message }}</td>
+            <td>
+              {% if msg.traite %}
+              <span class="badge bg-success">Traité</span>
+              {% else %}
+              <span class="badge bg-warning text-dark">Non traité</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if not msg.traite %}
+              <a
+                href="{{ path('employe_traite_message', { id: msg.id }) }}"
+                class="btn btn-secondary btn-sm"
+                >Traité</a
+              >
+              {% endif %}
+              <a
+                href="{{ path('employe_supprimer_message', { id: msg.id }) }}"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('Confirmer la suppression de ce message ?');"
+                >Supprimer</a
+              >
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5" class="text-center">Aucun message reçu</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -29,6 +29,9 @@ class MessageContact
     #[ORM\ManyToOne(inversedBy: 'messageContacts')]
     private ?Employe $traitePar = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $traite = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -42,7 +45,6 @@ class MessageContact
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -54,7 +56,6 @@ class MessageContact
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -66,7 +67,6 @@ class MessageContact
     public function setMessage(string $message): static
     {
         $this->message = $message;
-
         return $this;
     }
 
@@ -78,7 +78,6 @@ class MessageContact
     public function setDateEnvoi(\DateTimeInterface $dateEnvoi): static
     {
         $this->dateEnvoi = $dateEnvoi;
-
         return $this;
     }
 
@@ -90,7 +89,17 @@ class MessageContact
     public function setTraitePar(?Employe $traitePar): static
     {
         $this->traitePar = $traitePar;
+        return $this;
+    }
 
+    public function isTraite(): ?bool
+    {
+        return $this->traite;
+    }
+
+    public function setTraite(bool $traite): static
+    {
+        $this->traite = $traite;
         return $this;
     }
 }

@@ -61,10 +61,17 @@ class Covoiturage
     #[ORM\JoinTable(name: 'covoiturage_validations')]
     private Collection $passagersValidations;
 
+   /**
+    * @var Collection<int, Incident>
+    */
+   #[ORM\OneToMany(targetEntity: Incident::class, mappedBy: 'covoiturage')]
+   private Collection $incidents;
+
     public function __construct()
     {
         $this->passagers = new ArrayCollection();
         $this->passagersValidations = new ArrayCollection();
+        $this->incidents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +242,36 @@ class Covoiturage
     public function removePassagerValidation(User $user): static
     {
         $this->passagersValidations->removeElement($user);
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Incident>
+     */
+    public function getIncidents(): Collection
+    {
+        return $this->incidents;
+    }
+
+    public function addIncident(Incident $incident): static
+    {
+        if (!$this->incidents->contains($incident)) {
+            $this->incidents->add($incident);
+            $incident->setCovoiturage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIncident(Incident $incident): static
+    {
+        if ($this->incidents->removeElement($incident)) {
+            // set the owning side to null (unless already changed)
+            if ($incident->getCovoiturage() === $this) {
+                $incident->setCovoiturage(null);
+            }
+        }
+
         return $this;
     }
 }

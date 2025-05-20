@@ -36,7 +36,7 @@ endblock %} {% block content %}
           %}
         </td>
         <td>
-          {% if trajet.chauffeur == app.user %} {% if trajet.etat == 'prévu' %}
+          {% if trajet.role == 'chauffeur' %} {% if trajet.etat == 'prévu' %}
           <a
             href="{{ path('trajet_start', { id: trajet.id }) }}"
             class="btn btn-outline-primary btn-sm"
@@ -48,14 +48,20 @@ endblock %} {% block content %}
             class="btn btn-outline-success btn-sm"
             >🏁 Arrivée</a
           >
-          {% else %}-{% endif %} {% elseif trajet.etat == 'termine' and not
-          trajet.avis and trajet.role == 'passager' %}
+          {% else %} - {% endif %} {% elseif trajet.role == 'passager' and
+          trajet.etat == 'termine' %} {% if not trajet.avis %}
           <a
             href="{{ path('trajet_avis', { id: trajet.id }) }}"
             class="btn btn-sm btn-outline-primary"
-            >Ajouter un avis</a
+            >⭐ Ajouter un avis</a
           >
-          {% else %}-{% endif %}
+          {% endif %}
+          <a
+            href="{{ path('incident_signalement', { id: trajet.id }) }}"
+            class="btn btn-sm btn-outline-danger mt-1"
+            >🚨 Signaler</a
+          >
+          {% else %} - {% endif %}
         </td>
       </tr>
       {% else %}

@@ -1,0 +1,35 @@
+{% extends 'baseUser.html.twig' %} {% block title %}Signaler un incident -
+EcoRide{% endblock %} {% block content %}
+<div class="container mt-5">
+  <div class="incident-box p-4 rounded shadow-sm">
+    <h2 class="text-center mb-4 text-primary fw-bold">
+      🚨 Signaler un incident
+    </h2>
+
+    <p class="text-muted text-center">
+      Trajet concerné :
+      <strong>{{ covoiturage.depart }} → {{ covoiturage.arrivee }}</strong>
+    </p>
+
+    <form method="post">
+      <div class="mb-3">
+        <label for="description" class="form-label"
+          >Décrivez le problème rencontré :</label
+        >
+        <textarea
+          name="description"
+          id="description"
+          class="form-control"
+          rows="5"
+          required
+          placeholder="Exemple : Le chauffeur est arrivé avec 1h de retard..."
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-danger w-100">
+        Envoyer le signalement
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

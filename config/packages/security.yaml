@@ -4,6 +4,8 @@ security:
       algorithm: auto
     App\Entity\Employe:
       algorithm: auto
+    App\Entity\Administrateur:
+      algorithm: auto
 
   providers:
     app_user_provider:
@@ -14,6 +16,11 @@ security:
     employe_provider:
       entity:
         class: App\Entity\Employe
+        property: email
+
+    admin_provider:
+      entity:
+        class: App\Entity\Administrateur
         property: email
 
   firewalls:
@@ -31,6 +38,16 @@ security:
         path: employe_logout
         target: /employe/login
 
+    admin:
+      pattern: ^/admin
+      lazy: true
+      provider: admin_provider
+      custom_authenticators:
+        - App\Security\AdminAuthenticator
+      logout:
+        path: admin_logout
+        target: /admin/login
+
     main:
       lazy: true
       provider: app_user_provider
@@ -42,6 +59,7 @@ security:
 
   access_control:
     - { path: ^/employe/login, roles: PUBLIC_ACCESS }
+    - { path: ^/admin/login, roles: PUBLIC_ACCESS }
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/employe, roles: ROLE_EMPLOYE }
     - { path: ^/user, roles: ROLE_USER }
