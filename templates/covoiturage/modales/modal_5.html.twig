@@ -1,12 +1,22 @@
-<div class="modal fade show d-block" tabindex="-1" style="background: rgba(0,0,0,0.7);">
+<div
+  class="modal fade show d-block"
+  tabindex="-1"
+  style="background: rgba(255, 255, 255, 0.6)"
+>
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content border-success shadow-lg">
+      <div class="modal-header bg-success text-white">
         <h5 class="modal-title">Participation confirmée</h5>
       </div>
       <div class="modal-body text-center">
-        <p>Félicitations ! Vous avez rejoint ce covoiturage avec succès.</p>
-        <a href="{{ path('app_covoiturage') }}" class="btn btn-primary">Retour aux trajets</a>
+        <p class="text-success fw-bold">
+          ✅ Félicitations ! Vous avez rejoint ce covoiturage avec succès.
+        </p>
+        <a
+          href="{{ path('app_covoiturage') }}"
+          class="btn btn-outline-success mt-3"
+          >Retour aux trajets</a
+        >
       </div>
     </div>
   </div>

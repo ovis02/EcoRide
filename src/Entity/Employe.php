@@ -26,6 +26,9 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $motDePasse = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $actif = true;
+
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'gerePar')]
     private Collection $avisGere;
 
@@ -76,6 +79,22 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMotDePasse(string $motDePasse): static
     {
         $this->motDePasse = $motDePasse;
+        return $this;
+    }
+
+    public function isActif(): bool
+    {
+        return $this->actif;
+    }
+
+    public function getActif(): bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): static
+    {
+        $this->actif = $actif;
         return $this;
     }
 

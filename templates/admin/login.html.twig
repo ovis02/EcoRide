@@ -1,6 +1,6 @@
-{% extends 'baseUserEmploye.html.twig' %} {% block title %}Connexion
+{% extends 'baseUserAdmin.html.twig' %} {% block title %}Connexion
 Administrateur - EcoRide{% endblock %} {% block content %}
-<div class="login-employe-box">
+<div class="login-admin-box">
   <h2 class="text-center mb-4 text-danger fw-bold">
     🛡️ Connexion Administrateur
   </h2>
@@ -45,11 +45,10 @@ Administrateur - EcoRide{% endblock %} {% block content %}
     <button class="btn btn-danger w-100">Se connecter</button>
   </form>
 
-  <!-- Retour accueil -->
   <div class="text-center mt-3">
-    <a href="{{ path('app_home') }}" class="btn btn-secondary">
-      Retour à l'accueil
-    </a>
+    <a href="{{ path('app_home') }}" class="btn btn-secondary"
+      >Retour à l'accueil</a
+    >
   </div>
 </div>
 {% endblock %}

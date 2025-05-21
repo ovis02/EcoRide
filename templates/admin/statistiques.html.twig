@@ -1,0 +1,27 @@
+{% extends 'baseUserAdmin.html.twig' %} {% block title %}Statistiques - Admin |
+EcoRide{% endblock %} {% block content %}
+<div class="container mt-4 admin-section admin-statistiques">
+  <h2 class="admin-section-title">📈 Statistiques de la plateforme</h2>
+
+  <div class="mb-4 text-center">
+    <h5 class="fw-bold">Total de crédits gagnés :</h5>
+    <p class="fs-4 text-success">{{ totalCredits }} crédits</p>
+  </div>
+
+  <div class="mb-5">
+    <h5 class="admin-section-title">Nombre de covoiturages par jour</h5>
+    <canvas id="graphCovoiturage"></canvas>
+  </div>
+
+  <div class="mb-5">
+    <h5 class="admin-section-title">Crédits gagnés par jour</h5>
+    <canvas id="graphCredits"></canvas>
+  </div>
+</div>
+{% endblock %} {% block javascripts %}
+{{ parent() }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const statistiquesData = {{ statistiquesJson|raw }};
+</script>
+{% endblock %}

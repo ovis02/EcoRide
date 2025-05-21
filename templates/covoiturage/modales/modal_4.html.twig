@@ -14,22 +14,26 @@
           {{ erreurRole }}
         </div>
         {% else %}
-        <p>Ce trajet utilise 1 crédit. Souhaitez-vous continuer ?</p>
-        <button
-          class="btn btn-success"
-          id="confirmParticipation"
-          data-url="{{
-            path('covoiturage_participer', { id: covoiturage.id })
-          }}"
-          data-token="{{ csrf_token('participer' ~ covoiturage.id) }}"
-        >
-          Confirmer
-        </button>
-        {% endif %}
+        <p>
+          Ce trajet utilise <strong>1 crédit</strong>. Souhaitez-vous continuer
+          ?
+        </p>
 
-        <a href="{{ path('app_covoiturage') }}" class="btn btn-secondary"
-          >Annuler</a
+        <form
+          method="POST"
+          action="{{ path('covoiturage_participer', { id: covoiturage.id }) }}"
         >
+          <input
+            type="hidden"
+            name="_token"
+            value="{{ csrf_token('participer' ~ covoiturage.id) }}"
+          />
+          <button type="submit" class="btn btn-success">Confirmer</button>
+          <a href="{{ path('app_covoiturage') }}" class="btn btn-secondary"
+            >Annuler</a
+          >
+        </form>
+        {% endif %}
       </div>
     </div>
   </div>

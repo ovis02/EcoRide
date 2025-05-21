@@ -2,13 +2,14 @@
 
 namespace App\Security;
 
-use App\Entity\Employe; // Assure-toi que le chemin vers ton entité Employé est correct
+use App\Entity\Employe;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -19,9 +20,9 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class EmployeAuthenticator extends AbstractLoginFormAuthenticator
 {
-    use TargetPathTrait; // Pour gérer la redirection vers la page demandée avant la connexion
+    use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'employe_login'; // Nom de la route pour la page de connexion des employés
+    public const LOGIN_ROUTE = 'employe_login';
 
     private UrlGeneratorInterface $urlGenerator;
     private EntityManagerInterface $entityManager;
@@ -34,17 +35,27 @@ class EmployeAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $email = $request->request->get('email', ''); // Récupère l'email depuis la requête
-        $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email); // Stocke l'email en session
+        $email = $request->request->get('email', '');
+        $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
 
         return new Passport(
             new UserBadge($email, function ($userIdentifier) {
-                // Charge l'employé depuis la base de données
-                return $this->entityManager->getRepository(Employe::class)->findOneBy(['email' => $userIdentifier]);
+                $employe = $this->entityManager->getRepository(Employe::class)->findOneBy(['email' => $userIdentifier]);
+
+                // 🔒 Vérification si le compte est suspendu
+                if (!$employe) {
+                    throw new CustomUserMessageAuthenticationException('Email ou mot de passe incorrect.');
+                }
+
+                if (!$employe->isActif()) {
+                    throw new CustomUserMessageAuthenticationException('Ce compte a été suspendu.');
+                }
+
+                return $employe;
             }),
-            new PasswordCredentials($request->request->get('password', '')), // Récupère le mot de passe
+            new PasswordCredentials($request->request->get('password', '')),
             [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token', '')), // Gestion du token CSRF
+                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token', '')),
             ]
         );
     }
@@ -52,17 +63,14 @@ class EmployeAuthenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            // Si l'utilisateur avait demandé une page avant de se connecter, on le redirige vers cette page
             return new RedirectResponse($targetPath);
         }
 
-        // Sinon, on le redirige vers le dashboard des employés (la page que tu souhaites après la connexion)
-        return new RedirectResponse($this->urlGenerator->generate('employe_dashboard')); // Utilise le nom de la route ici
+        return new RedirectResponse($this->urlGenerator->generate('employe_dashboard'));
     }
 
     protected function getLoginUrl(Request $request): string
     {
-        // Retourne l'URL de la page de connexion
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }

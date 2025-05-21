@@ -401,6 +401,27 @@ public function endTrajet(int $id, EntityManagerInterface $em): RedirectResponse
     } else {
         $trajet->setEtat('termine');
         $em->flush();
+
+        //  Met à jour MongoDB
+        $client = new \MongoDB\Client('mongodb://localhost:27017');
+        $collection = $client->ecoride->statistiques;
+
+        $today = (new \DateTime())->format('Y-m-d');
+        $doc = $collection->findOne(['date' => $today]);
+
+        if ($doc) {
+            $collection->updateOne(
+                ['date' => $today],
+                ['$inc' => ['nombre_covoiturages' => 1]]
+            );
+        } else {
+            $collection->insertOne([
+                'date' => $today,
+                'credits_gagnes' => 0,
+                'nombre_covoiturages' => 1
+            ]);
+        }
+
         $this->addFlash('success', 'Trajet terminé. Les passagers peuvent maintenant valider le trajet et laisser un avis.');
     }
 

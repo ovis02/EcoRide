@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Covoiturage;
 use App\Repository\CovoiturageRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use MongoDB\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,14 +77,12 @@ class CovoiturageController extends AbstractController
     ): Response {
         $user = $this->getUser();
 
-        // MODALE 3 — Utilisateur non connecté
         if (!$user) {
             return $this->render('covoiturage/modales/modal_3.html.twig', [
                 'covoiturage' => $covoiturage,
             ]);
         }
 
-        // ❌ Si l'utilisateur est uniquement chauffeur, participation refusée
         if (
             in_array('ROLE_CHAUFFEUR', $user->getRoles(), true) &&
             !in_array('ROLE_PASSAGER', $user->getRoles(), true)
@@ -94,14 +93,12 @@ class CovoiturageController extends AbstractController
             ]);
         }
 
-        // MODALE 4 — Affichage confirmation
         if (!$request->isMethod('POST')) {
             return $this->render('covoiturage/modales/modal_4.html.twig', [
                 'covoiturage' => $covoiturage,
             ]);
         }
 
-        // Vérification CSRF
         $submittedToken = $request->request->get('_token');
         $expectedToken = new CsrfToken('participer' . $covoiturage->getId(), $submittedToken);
 
@@ -109,24 +106,40 @@ class CovoiturageController extends AbstractController
             throw new AccessDeniedException('Jeton CSRF invalide.');
         }
 
-        // Vérification crédits et places
         if ($covoiturage->getNbPlacesDispo() < 1 || $user->getCredits() < 1) {
             return $this->redirectToRoute('app_covoiturage');
         }
 
-        // Déjà passager ?
         if ($covoiturage->getPassagers()->contains($user)) {
             return $this->redirectToRoute('app_covoiturage');
         }
 
-        // ✅ Enregistrement
         $covoiturage->addPassager($user);
         $covoiturage->setNbPlacesDispo($covoiturage->getNbPlacesDispo() - 1);
         $user->setCredits($user->getCredits() - 1);
 
         $em->flush();
 
-        // MODALE 5 — Confirmation
+        // ✅ Mise à jour des crédits gagnés dans MongoDB
+        $client = new Client('mongodb://localhost:27017');
+        $collection = $client->ecoride->statistiques;
+
+        $today = (new \DateTime())->format('Y-m-d');
+        $doc = $collection->findOne(['date' => $today]);
+
+        if ($doc) {
+            $collection->updateOne(
+                ['date' => $today],
+                ['$inc' => ['credits_gagnes' => 1]]
+            );
+        } else {
+            $collection->insertOne([
+                'date' => $today,
+                'credits_gagnes' => 1,
+                'nombre_covoiturages' => 0,
+            ]);
+        }
+
         return $this->render('covoiturage/modales/modal_5.html.twig', [
             'covoiturage' => $covoiturage,
         ]);
