@@ -3,31 +3,28 @@
     {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('admin_dashboard') }}">
       <img
-        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        src="{{ asset('images/logo/iconebleu.png') }}"
         alt="Dashboard Admin"
       />
     </a>
     {% elseif is_granted('ROLE_EMPLOYE') %}
     <a href="{{ path('employe_dashboard') }}">
       <img
-        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        src="{{ asset('images/logo/iconebleu.png') }}"
         alt="Dashboard Employé"
       />
     </a>
     {% elseif is_granted('ROLE_USER') %}
     <a href="{{ path('user_dashboard') }}">
       <img
-        src="{{ asset('assets/images/logo/iconebleu.png') }}"
+        src="{{ asset('images/logo/iconebleu.png') }}"
         alt="Dashboard Utilisateur"
       />
     </a>
     {% else %}
     <div class="dropdown-wrapper">
       <button class="login-toggle" type="button">
-        <img
-          src="{{ asset('assets/images/logo/iconebleu.png') }}"
-          alt="Connexion"
-        />
+        <img src="{{ asset('images/logo/iconebleu.png') }}" alt="Connexion" />
       </button>
       <div class="login-dropdown">
         <a class="login-user" href="{{ path('app_login') }}"
@@ -46,10 +43,7 @@
 
   <div class="header-container">
     <div class="logo">
-      <img
-        src="{{ asset('assets/images/logo/LOGO EcoRide.PNG') }}"
-        alt="EcoRide"
-      />
+      <img src="{{ asset('images/logo/LOGO EcoRide.PNG') }}" alt="EcoRide" />
     </div>
 
     <div class="text-center flex-grow-1">
