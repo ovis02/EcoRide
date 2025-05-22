@@ -737,14 +737,14 @@ p {
 
   .vertical-navbar a {
     display: block;
-    color: #54331e;
+    color: #005f73;
     text-decoration: none;
     font-size: 18px;
     padding: 15px 20px;
   }
 
   .vertical-navbar a:hover {
-    background-color: #f78f2e;
+    background-color: #66a1e3;
   }
 
   #close-button {

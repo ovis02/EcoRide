@@ -92,7 +92,8 @@ class AdministrateurController extends AbstractController
     #[Route('/statistiques', name: 'admin_statistiques')]
     public function statistiques(): Response
     {
-        $client = new Client('mongodb://localhost:27017');
+        $mongoUrl = $_SERVER['MONGODB_URL'] ?? 'mongodb://localhost:27017';
+        $client = new Client($mongoUrl);
         $collection = $client->ecoride->statistiques;
 
         $donnees = $collection->find([], ['sort' => ['date' => 1]])->toArray();

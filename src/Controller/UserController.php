@@ -403,7 +403,8 @@ public function endTrajet(int $id, EntityManagerInterface $em): RedirectResponse
         $em->flush();
 
         //  Met à jour MongoDB
-        $client = new \MongoDB\Client('mongodb://localhost:27017');
+        $mongoUrl = $_SERVER['MONGODB_URL'] ?? 'mongodb://localhost:27017';
+        $client = new \MongoDB\Client($mongoUrl);
         $collection = $client->ecoride->statistiques;
 
         $today = (new \DateTime())->format('Y-m-d');

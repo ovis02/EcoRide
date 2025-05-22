@@ -120,8 +120,8 @@ class CovoiturageController extends AbstractController
 
         $em->flush();
 
-        // ✅ Mise à jour des crédits gagnés dans MongoDB
-        $client = new Client('mongodb://localhost:27017');
+        $mongoUrl = $_SERVER['MONGODB_URL'] ?? 'mongodb://localhost:27017';
+        $client = new Client($mongoUrl);
         $collection = $client->ecoride->statistiques;
 
         $today = (new \DateTime())->format('Y-m-d');
