@@ -1,0 +1,459 @@
+/* ============================== */
+/* RESET & BASE STYLES           */
+/* ============================== */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================== */
+/* HEADER                         */
+/* ============================== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url("../images/wallpaper/imageFond.png");
+  background-size: cover;
+  background-position: center;
+  height: 160px;
+  padding: 15px;
+  z-index: 999;
+}
+
+/*............................admin......................................*/
+.admin img {
+  top: 0;
+  right: 0;
+  display: block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+}
+/*logo connexion utilisateur/employe/admin*/
+
+.logo {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.logo img {
+  width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.login-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.login-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.login-toggle img {
+  width: 50px;
+  height: 50px;
+}
+
+.login-dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  min-width: 190px;
+  padding: 8px;
+}
+
+.login-menu.active .login-dropdown {
+  display: flex;
+}
+
+.login-dropdown a {
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+.login-dropdown a:hover {
+  background-color: #f0f0f0;
+}
+
+.login-user {
+  color: #007bff;
+}
+
+.login-employe {
+  color: #198754;
+}
+
+.login-admin {
+  color: #6c757d;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+.header-container > .logo {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.header-container > .text-center {
+  text-align: center;
+}
+.header-container > div:last-child {
+  position: absolute;
+  right: 0;
+  top: 40px;
+}
+
+/* ============================== */
+/* MAIN LAYOUT / PAGE STRUCTURE */
+/* ============================== */
+.content-central {
+  min-height: 100vh;
+}
+
+.main-content {
+  padding: 30px;
+  padding-top: 180px;
+  margin-top: 100px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*Login Connexion Employe*/
+.login-employe-box {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  max-width: 500px;
+  margin: 40px auto;
+  border-radius: 16px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+/* -------- Admin Dashboard -------- */
+.admin-section {
+  border-radius: 15px;
+  background-color: rgba(0, 95, 115, 0.05);
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.admin-dashboard {
+  border: 2px solid #005f73;
+  background-color: transparent;
+}
+
+.admin-title {
+  color: #005f73;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.admin-table th {
+  background-color: #005f73;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.admin-table td {
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+.admin-table .btn-sm {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+}
+
+/* -------- Bouton Statistiques -------- */
+.admin-btn-stats {
+  background-color: #005f73;
+  border-color: #005f73;
+  color: white;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.admin-btn-stats:hover {
+  background-color: #00465a;
+  border-color: #00465a;
+}
+
+/* -------- Bloc statistiques -------- */
+.admin-statistiques {
+  border: 2px solid #005f73;
+  background-color: transparent;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+.admin-section-title {
+  color: #005f73;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+/* -------- Formulaire Ajout Employé Admin -------- */
+.admin-ajout-form {
+  border-radius: 15px;
+  background-color: rgba(0, 95, 115, 0.05);
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 2px solid #005f73;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.admin-ajout-title {
+  color: #005f73;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.admin-ajout-form .form-control {
+  font-size: 0.95rem;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.admin-ajout-form .btn {
+  font-size: 0.95rem;
+  padding: 10px 15px;
+}
+
+/* ============================== */
+/* FOOTER                        */
+/* ============================== */
+.perso-footer {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 95, 115, 0.2),
+    rgba(10, 147, 150, 0.2)
+  );
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  background-size: cover;
+  background-position: center;
+}
+.logo-footer {
+  max-width: 100%;
+  height: auto;
+}
+.footer-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.contact-button {
+  background-color: white;
+  color: #005f73;
+  border: 2px solid #005f73;
+  max-width: 200px;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+.social-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+.text-muted {
+  margin-top: 10px;
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .logo {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  .logo img {
+    width: 100px;
+    height: auto;
+  }
+
+  .login-toggle img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .login-dropdown {
+    top: 50px;
+    min-width: 160px;
+    padding: 6px;
+  }
+
+  .login-dropdown a {
+    font-size: 14px;
+    padding: 8px;
+  }
+  /*...................................*/
+
+  .main-content {
+    margin-left: 70px;
+    margin-top: 100px;
+    width: calc(100% - 70px);
+    padding: 20px;
+    padding-top: 130px;
+  }
+
+  .content-central {
+    max-width: 100%;
+    padding: 0 10px; /* pour éviter de coller aux bords */
+  }
+  /*login admin version mobile*/
+  .login-admin-box {
+    margin: 15px;
+    padding: 15px;
+  }
+
+  .login-admin-box h2 {
+    font-size: 18px;
+  }
+
+  .login-admin-box .btn {
+    font-size: 13px;
+  }
+
+  /*ajout employe*/
+  .admin-ajout-form {
+    padding: 20px;
+  }
+
+  .admin-ajout-title {
+    font-size: 1.2rem;
+  }
+
+  .admin-ajout-form .form-control {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .admin-ajout-form .btn {
+    font-size: 0.85rem;
+  }
+  /*page dashboard*/
+  .admin-title {
+    font-size: 1.2rem;
+  }
+
+  .admin-table td,
+  .admin-table th {
+    font-size: 0.85rem;
+    padding: 6px;
+  }
+
+  .admin-table .btn-sm {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+  /*statistique*/
+  .admin-section {
+    padding: 15px;
+  }
+
+  .admin-section-title {
+    font-size: 1.1rem;
+  }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+  /*bouton statistique*/
+  .admin-btn-stats {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  /*footer*/
+  .perso-footer .row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .perso-footer .col-md-4 {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .contact-button {
+    width: 80%;
+    max-width: 250px;
+    margin: 10px auto;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .social-icon {
+    margin: 0 5px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .logo-footer {
+    max-width: 150px;
+    margin: 0 auto;
+  }
+
+  .footer-title {
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,921 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/*..................header.................. */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url("../images/wallpaper/imageFond.png");
+  background-size: cover;
+  background-position: center;
+  height: 160px;
+  padding: 15px;
+}
+
+/*............................admin......................................*/
+.admin img {
+  top: 0;
+  right: 0;
+  display: block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+}
+/*.............................logoEcoride.......................................*/
+.logo {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.logo img {
+  width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.login-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.login-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.login-toggle img {
+  width: 50px;
+  height: 50px;
+}
+
+.login-dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  min-width: 190px;
+  padding: 8px;
+}
+
+.login-menu.active .login-dropdown {
+  display: flex;
+}
+
+.login-dropdown a {
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+.login-dropdown a:hover {
+  background-color: #f0f0f0;
+}
+
+.login-user {
+  color: #007bff;
+}
+
+.login-employe {
+  color: #198754;
+}
+
+.login-admin {
+  color: #6c757d;
+}
+/*..................................................................................*/
+
+/* Menu centré */
+
+.titre-navigation {
+  position: absolute;
+  top: 50px;
+  left: 180px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-size: 24px;
+  color: #005f73;
+  font-weight: bold;
+  font-family: "Inika", serif;
+}
+
+.burger-container {
+  display: none;
+}
+
+.vertical-navbar {
+  display: none;
+}
+
+/* Barre de recherche sous le header */
+.search-container {
+  position: absolute;
+  top: 155px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 2;
+}
+
+.search-box {
+  background-color: #66a1e3;
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-box .form-control {
+  border-radius: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+.search-box .form-control::placeholder {
+  color: #6c757d;
+}
+
+/* Bouton Rechercher */
+button.btn.button-reserch {
+  background-color: #66a1e3;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button.btn.button-reserch:hover {
+  background-color: #5494d1;
+}
+
+/*Introduction*/
+.introduction-section {
+  margin-top: 130px;
+}
+
+.text-container h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+.text-container p {
+  text-align: center;
+  font-size: 1.5 rem;
+}
+
+.text-container h1,
+p {
+  color: #005f73;
+  font-family: "Roboto", sans-serif;
+}
+
+/*...........................Section centrale........................*/
+
+.centered-section {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.centered-section h2 {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  color: #005f73;
+}
+
+.centered-section p {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  color: #005f73;
+}
+
+/* Footer */
+.perso-footer {
+  background-size: cover;
+  background-position: center;
+
+  background: linear-gradient(
+    135deg,
+    rgba(0, 95, 115, 0.2),
+    rgba(10, 147, 150, 0.2)
+  );
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.logo-footer {
+  max-width: 100%;
+  height: auto;
+}
+
+.footer-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.contact-button {
+  background-color: white;
+  color: #005f73;
+  border: 2px solid #005f73;
+  max-width: 200px;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.text-muted {
+  margin-top: 10px;
+}
+
+/*Formulaire de contact*/
+
+.contact-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background-image: url("../images/wallpaper/ecosystem2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.contact-wrapper {
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+.contact-title {
+  font-size: 48px;
+  color: #ffffff;
+  margin-bottom: 30px;
+  font-weight: 600;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  font-family: "Poppins", sans-serif;
+}
+
+.contact-form-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.form-group {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #eee;
+  display: block;
+  font-size: 16px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 0 0 1px #ccc;
+  transition: box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 2px #00a896;
+}
+
+.form-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  background: linear-gradient(135deg, #00a896, #005f73);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.form-button:hover {
+  background: linear-gradient(135deg, #02c39a, #05668d);
+  transform: scale(1.02);
+}
+
+/*formulaire de connexion utilisateur*/
+.login {
+  min-height: 100vh;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f8f9fa; /* optionnel pour un fond doux */
+}
+/*formulaire d'inscription utilisateur*/
+
+.registration-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.registration-title {
+  text-align: center;
+  color: #003f4c;
+  margin-bottom: 30px;
+}
+
+.registration-box {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-check {
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.checkbox-group {
+  margin-top: 15px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #66a1e3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+/*page de confirmation inscription*/
+.registration-success-wrapper {
+  min-height: 100vh;
+  background-color: rgba(0, 95, 115, 0.1); /* 90% éclairci */
+  color: #005f73;
+  padding: 40px;
+}
+
+.registration-success-box {
+  background: white;
+  padding: 50px 30px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  animation: pop 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes pop {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.registration-success-box h2 {
+  font-weight: bold;
+  color: #005f73;
+}
+
+.registration-success-box a.btn {
+  background-color: #005f73;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.registration-success-box a.btn:hover {
+  background-color: #004d60;
+}
+/*.............Page Covoiturage............*/
+.container-fluid {
+  margin-top: 100px;
+  margin-bottom: 200px;
+}
+
+.form-label {
+  margin-bottom: 0.5rem;
+  color: #34495e;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.form-control:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.form-range {
+  margin-top: 1rem;
+}
+
+.btn-success {
+  background-color: #4caf50;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #45a049;
+}
+
+.col-md-6 {
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #e6eff2;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card h5 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #003f5c;
+}
+
+.card label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.card input[type="radio"] {
+  margin-right: 6px;
+}
+
+.card input[type="number"] {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.card input[type="range"] {
+  width: 100%;
+  accent-color: #0077b6;
+  margin-top: 8px;
+}
+
+.card .stars {
+  text-align: center;
+  font-size: 22px;
+  color: #005f73;
+  margin-top: 10px;
+}
+
+.card button,
+.card .btn-success {
+  background-color: white;
+  border: 1px solid #0077b6;
+  color: #0077b6;
+  border-radius: 8px;
+  padding: 8px;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+}
+
+.card button:hover,
+.card .btn-success:hover {
+  background-color: #0077b6;
+  color: white;
+}
+
+/* Modale et boutons détails */
+.card-title {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.btn-info {
+  background-color: #66a1e3;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-info:hover {
+  background-color: #2980b9;
+}
+
+.modal-title {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.modal-body {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.btn-secondary {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #d0d0d0;
+}
+
+.btn-primary {
+  background-color: #66a1e3;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 768px) {
+  /*header*/
+  header {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .titre-navigation {
+    display: none;
+  }
+  /*..................LogoAdministrator.............*/
+  .admin img {
+    top: 0;
+    right: 0;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+  }
+
+  /*.............................logoEcoride.......................................*/
+  .logo {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  .logo img {
+    width: 100px;
+    height: auto;
+  }
+
+  .login-toggle img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .login-dropdown {
+    top: 50px;
+    min-width: 160px;
+    padding: 6px;
+  }
+
+  .login-dropdown a {
+    font-size: 14px;
+    padding: 8px;
+  }
+  /*...................................*/
+
+  /* Positionnement du burger */
+  .burger-container {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    margin: 10px;
+    display: block;
+  }
+
+  /* Styles pour la barre de navigation verticale uniquement pour les appareils mobiles */
+  .vertical-navbar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    overflow-y: auto;
+    padding-top: 60px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .vertical-navbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .vertical-navbar a {
+    display: block;
+    color: #54331e;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 15px 20px;
+  }
+
+  .vertical-navbar a:hover {
+    background-color: #f78f2e;
+  }
+
+  #close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    color: #54331e;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  /*..........BarreDeRecherche.......*/
+
+  .search-box {
+    padding: 15px;
+  }
+
+  .search-box .form-control {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .search-container {
+    top: 140px;
+    padding: 0 10px;
+  }
+
+  .button-reserch {
+    width: 100%;
+  }
+  /*..........................*/
+  .introduction-section {
+    margin-top: 320px;
+  }
+
+  /*........................PrincipaleMobileFormat.............................*/
+  .text-container {
+    margin-top: 100px;
+    width: auto;
+    text-align: center;
+  }
+
+  .text-container h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+  }
+
+  .text-container p {
+    font-size: 10px;
+    font-weight: bold;
+    color: #005f73;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  /*...........................Section centrale........................*/
+  .centered-section {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .centered-section h2 {
+    font-size: 20px;
+  }
+
+  .centered-section p {
+    font-size: 10px;
+  }
+  /*Page de coivoiturage*/
+
+  .container-fluid {
+    margin-top: 400px;
+    margin-bottom: 200px;
+  }
+  .card {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .card h5 {
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .card label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .form-control,
+  .form-range {
+    font-size: 14px;
+  }
+
+  .form-range {
+    margin-bottom: 10px;
+  }
+
+  .card .d-flex.justify-content-between {
+    font-size: 13px;
+    padding: 0 5px;
+    margin-bottom: 10px;
+  }
+
+  .btn-success {
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .card input[type="radio"] {
+    margin-right: 4px;
+    margin-left: 10px;
+  }
+
+  .card input[type="number"] {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  /*formulaire de contact*/
+  .contact-form-container {
+    padding: 20px;
+  }
+
+  .contact-form-container form {
+    width: 100%;
+  }
+
+  .contact-title {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .form-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+  /*.........footer Mobile.........*/
+
+  .logo-footer {
+    width: 70px;
+    height: auto;
+  }
+
+  .contact-button {
+    max-width: 100%;
+    width: 90%;
+    font-size: 16px;
+    padding: 12px 0;
+  }
+
+  .footer-title {
+    font-size: 12px;
+  }
+
+  .link-secondary {
+    font-size: 10px;
+  }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+/*...................................*/
