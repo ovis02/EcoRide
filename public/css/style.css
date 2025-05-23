@@ -279,8 +279,9 @@ p {
 
 .contact-section {
   display: flex;
+  min-height: 100vh;
   margin-top: 160px;
-  padding-top: 100px;
+  padding-top: 0;
   padding-bottom: 100px;
   align-items: center;
   justify-content: center;
@@ -369,6 +370,7 @@ p {
 
 /*formulaire de connexion utilisateur*/
 .login {
+  margin-top: 100px;
   min-height: 100vh;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -906,10 +908,14 @@ p {
 
   /*formulaire de contact*/
   .contact-section {
-    padding: 60px 15px 60px; /* Plus d'espace haut sur mobile */
+    padding: 50px 15px 50px;
     margin-top: 135px;
+    margin-bottom: auto;
   }
 
+  .contact-wrapper {
+    transform: translateY(-180px);
+  }
   .contact-title {
     font-size: 24px;
     text-align: center;
@@ -923,6 +929,7 @@ p {
     font-size: 1rem;
     padding: 0.75rem;
   }
+
   /*.........footer Mobile.........*/
 
   .logo-footer {
