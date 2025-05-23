@@ -909,12 +909,12 @@ p {
   /*formulaire de contact*/
   .contact-section {
     padding: 50px 15px 50px;
-    margin-top: 135px;
+    margin-top: 134px;
     margin-bottom: auto;
   }
 
   .contact-wrapper {
-    transform: translateY(-180px);
+    transform: translateY(-40px);
   }
   .contact-title {
     font-size: 24px;
