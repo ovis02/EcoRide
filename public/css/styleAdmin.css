@@ -152,7 +152,7 @@ header {
 }
 
 /*Login Connexion Employe*/
-.login-employe-box {
+.login-admin-box {
   background-color: rgba(255, 255, 255, 0.95);
   padding: 30px;
   max-width: 500px;
@@ -309,6 +309,40 @@ header {
 }
 /* Responsive */
 @media (max-width: 768px) {
+  /*header*/
+  header {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 10px 15px 20px 15px;
+  }
+
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: static;
+    width: 100%;
+  }
+
+  .header-container > .logo {
+    position: static;
+    transform: none;
+    margin-bottom: 10px;
+  }
+
+  .header-container > .text-center {
+    position: static;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .header-container > div:last-child {
+    position: static;
+    margin-top: 10px;
+    text-align: center;
+  }
+
   .logo {
     position: relative;
     top: auto;
@@ -349,7 +383,7 @@ header {
 
   .content-central {
     max-width: 100%;
-    padding: 0 10px; /* pour éviter de coller aux bords */
+    padding: 0 10px;
   }
   /*login admin version mobile*/
   .login-admin-box {
