@@ -179,7 +179,7 @@ button.btn.button-reserch {
 }
 
 button.btn.button-reserch:hover {
-  background-color: #5494d1;
+  background-color: #005f73;
 }
 
 /*Introduction*/
@@ -773,21 +773,44 @@ p {
     z-index: 10;
   }
 
-  .search-box {
-    padding: 15px;
+  .search-box form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .search-box .form-control {
     font-size: 14px;
-    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+  }
+
+  .search-box .col-md-2,
+  .search-box .col-md-3 {
+    width: 48%; /* deux champs par ligne */
+  }
+
+  .search-box .col-md-2.d-grid {
+    width: 100%; /* le bouton prend toute la largeur */
   }
 
   .button-reserch {
+    font-size: 16px;
+    padding: 10px;
     width: 100%;
+  }
+
+  /* Bouton Rechercher */
+  button.btn.button-reserch {
+    background-color: #66a1e3;
+  }
+
+  button.btn.button-reserch:hover {
+    background-color: #005f73;
   }
   /*..........................*/
   .introduction-section {
-    margin-top: 450px;
+    margin-top: 300px;
   }
 
   /*........................PrincipaleMobileFormat.............................*/
@@ -829,9 +852,10 @@ p {
   /*Page de coivoiturage*/
 
   .container-fluid {
-    margin-top: 550px;
-    margin-bottom: 200px;
+    margin-top: 400px;
+    margin-bottom: 100px;
   }
+
   .card {
     margin-bottom: 30px;
     padding: 20px;
@@ -883,7 +907,7 @@ p {
   /*formulaire de contact*/
   .contact-section {
     padding: 60px 15px 60px; /* Plus d'espace haut sur mobile */
-    margin-top: 130px;
+    margin-top: 135px;
   }
 
   .contact-title {
