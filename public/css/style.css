@@ -770,9 +770,11 @@ p {
 
   /*..........BarreDeRecherche.......*/
   .search-container {
-    top: 140px;
-    padding: 0 10px;
+    position: relative;
+    padding: 0 20px;
     z-index: 10;
+    left: 0;
+    transform: none;
   }
 
   .search-box form {
@@ -789,11 +791,11 @@ p {
 
   .search-box .col-md-2,
   .search-box .col-md-3 {
-    width: 48%; /* deux champs par ligne */
+    width: 48%;
   }
 
   .search-box .col-md-2.d-grid {
-    width: 100%; /* le bouton prend toute la largeur */
+    width: 100%;
   }
 
   .button-reserch {
@@ -812,7 +814,7 @@ p {
   }
   /*..........................*/
   .introduction-section {
-    margin-top: 300px;
+    margin-top: 80px;
   }
 
   /*........................PrincipaleMobileFormat.............................*/
@@ -854,7 +856,7 @@ p {
   /*Page de coivoiturage*/
 
   .container-fluid {
-    margin-top: 400px;
+    margin-top: 180px;
     margin-bottom: 100px;
   }
 
