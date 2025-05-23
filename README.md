@@ -100,7 +100,12 @@ php bin/console doctrine:fixtures:load
 
 # Lancer le serveur
 symfony server:start
+
 ```
+
+# 🚀 Lien vers le projet en ligne
+
+👉 [Accéder à l'application déployée sur Heroku](https://ecoride02-edbedfe97bbc.herokuapp.com/)
 
 ---
 
