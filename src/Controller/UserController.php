@@ -255,6 +255,27 @@ public function preferenceChauffeur(Request $request, EntityManagerInterface $em
             $em->persist($trajet);
             $em->flush();
 
+             // Incrémente dans MongoDB les crédits gagnés
+        $mongoUrl = $_SERVER['MONGODB_URL'] ?? 'mongodb://localhost:27017';
+        $client = new \MongoDB\Client($mongoUrl);
+        $collection = $client->ecoride->statistiques;
+
+        $today = (new \DateTime())->format('Y-m-d');
+        $doc = $collection->findOne(['date' => $today]);
+
+        if ($doc) {
+            $collection->updateOne(
+                ['date' => $today],
+                ['$inc' => ['credits_gagnes' => 2]]
+            );
+        } else {
+            $collection->insertOne([
+                'date' => $today,
+                'credits_gagnes' => 2,
+                'nombre_covoiturages' => 0
+            ]);
+        }
+
             $this->addFlash('success', 'Trajet créé avec succès. 2 crédits ont été déduits.');
             return $this->redirectToRoute('user_trips');
         }
@@ -463,3 +484,4 @@ public function endTrajet(int $id, EntityManagerInterface $em): RedirectResponse
         ]);
     }
 }
+
