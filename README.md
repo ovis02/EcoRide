@@ -111,12 +111,12 @@ symfony server:start
 
 ## 🔓 Identifiants de test
 
-| Rôle               | Email              | Mot de passe |
-| ------------------ | ------------------ | ------------ |
-| Admin              | admin@ecoride.fr   | admin123     |
-| Employé            | employe@ecoride.fr | employe123   |
-| chauffeur+passager | alice@ecoride.fr   | password1    |
-| passager           | bob@ecoride.fr     | password2    |
+| Rôle               | Email               | Mot de passe |
+| ------------------ | ------------------- | ------------ |
+| Admin              | admin@ecoride.com   | admin123     |
+| Employé            | employe@ecoride.com | employe123   |
+| chauffeur+passager | alice@example.com   | password1    |
+| passager           | bob@example.com     | password2    |
 
 ---
 
