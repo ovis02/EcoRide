@@ -120,6 +120,40 @@ symfony server:start
 
 ---
 
+---
+
+## 🐳 Déploiement avec Docker (alternative professionnelle)
+
+En plus du déploiement classique sous XAMPP, ce projet Symfony peut être lancé dans un environnement Dockerisé pour une approche plus moderne et isolée.
+
+### ✅ Prérequis
+
+- Docker Desktop installé (avec WSL2 activé sur Windows)
+- Terminal (VS Code, PowerShell ou autre)
+
+### 📁 Fichiers Docker à ajouter à la racine du projet :
+
+- `Dockerfile` : contient la configuration du serveur PHP/Apache
+- `docker-compose.yml` : permet de lancer les services (PHP, MySQL, phpMyAdmin)
+
+### ▶️ Lancer le projet avec Docker
+
+```bash
+docker-compose up --build
+
+test le 14/06/2025 :
+
+http://localhost:8000/ pour le site en local
+
+http://localhost:8080 pour phpMyAdmin
+
+
+
+---
+
 ## ✍️ Auteur
 
 Ce projet a été réalisé par **Mohammad Aowis** dans le cadre d’une validation de compétences (ECF) pour démontrer la maîtrise de Symfony, MySQL, MongoDB, la gestion d’utilisateurs, la sécurité et l’intégration frontend/backend.
+
+
+```
